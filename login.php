@@ -17,7 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['login_user'] = $no_id;
         header("location: Dashboard.html");
     } else {
-        echo "Your Login ID or Password is invalid";
+        echo '<script type="text/javascript">';
+        echo 'alert("Your Login ID or Password is invalid");';
+        echo 'window.location.href = "index.html";';
+        echo '</script>';
     }
 }
 ?>
