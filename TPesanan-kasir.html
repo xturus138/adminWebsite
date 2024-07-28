@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Resto Unikom - Dashboard</title>
+    <title>Resto Unikom</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -56,21 +56,21 @@
                 Menu
             </div>
 
-          <!-- Nav Item - Pages Collapse Menu -->
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
-                aria-expanded="true" aria-controls="collapseKoki">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Koki</span>
-            </a>
-            <div id="collapseKoki" class="collapse show" aria-labelledby="headingKoki" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Menu Koki</h6>
-                    <a class="collapse-item" href="form-menu-koki.html">Buat Menu</a>
-                    <a class="collapse-item active" href="stok-makanan-koki.html">Stok Makanan</a>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
+                    aria-expanded="true" aria-controls="collapseKoki">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Koki</span>
+                </a>
+                <div id="collapseKoki" class="collapse" aria-labelledby="headingKoki" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Menu Koki</h6>
+                        <a class="collapse-item" href="form-menu-koki.html">Buat Menu</a>
+                        <a class="collapse-item" href="stok-makanan-koki.html">Stok Makanan</a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -91,17 +91,19 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Kasir Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir"
-                    aria-expanded="true" aria-controls="collapseKasir">
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Kasir</span>
                 </a>
-                <div id="collapseKasir" class="collapse" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item" href="TPesanan-kasir.html">Total Pesanan</a>
+                        <a class="collapse-item active" href="TPesanan-kasir.html">Total Pesanan</a>
                         <a class="collapse-item" href="Lkeuangan-kasir.html">Laporan Keuangan</a>
                     </div>
                 </div>
@@ -122,7 +124,6 @@
                     </div>
                 </div>
             </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -173,13 +174,6 @@
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
             </div>
 
         </ul>
@@ -395,98 +389,54 @@
                 </nav>
                 <!-- End of Topbar -->
 
-               <!-- Begin Page Content -->
-<div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Cek Stok Makanan</h1>
-    </div>
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Pesanan</h1>
 
-    <!-- Form -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Cek Stok Makanan</h6>
-                </div>
-                <div class="card-body">
-                    <form id="cekStokForm">
-                        <div class="form-group">
-                            <label for="no_menu">No Menu</label>
-                            <input type="text" class="form-control" id="no_menu" name="no_menu" required>
+                    <!-- Orders Tab -->
+                    <div id="orders" class="tab-content">
+                        <p class="mb-4">Daftar Pesanan Dari Semua Pelanggan.</p>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tabel Pesanan</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th class ="text-center" style="width: 20%;">Nomor Pesanan</th>
+                                                <th class ="text-center" style="width: 40%;">Total</th>
+                                                <th class ="text-center" style="width: 40%;">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="orders-table-body">
+                                            <!-- Orders will be populated here by JavaScript -->
+                                            <tr>
+                                                <td>19</td>
+                                                <td>1</td>
+                                                <td>Selesai</td>
+                                            </tr>
+                                            <tr>
+                                                <td>22</td>
+                                                <td>2</td>
+                                                <td>Selesai</td>
+                                            </tr>
+                                            <tr>
+                                                <td>31</td>
+                                                <td>3</td>
+                                                <td>Selesai</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="nama_menu">Nama Menu</label>
-                            <input type="text" class="form-control" id="nama_menu" name="nama_menu" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Harga</label>
-                            <input type="number" class="form-control" id="harga" name="harga" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="stok">Stok</label>
-                            <input type="number" class="form-control" id="stok" name="stok" readonly>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="cekStok()">Cek Stok</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tabel Menu -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Daftar Menu</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>No Menu</th>
-                                    <th>Nama Menu</th>
-                                    <th>Harga</th>
-                                    <th>Stok</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nasi Goreng</td>
-                                    <td>15000</td>
-                                    <td>10</td>
-                                    <td>Tersedia</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mie Goreng</td>
-                                    <td>13000</td>
-                                    <td>5</td>
-                                    <td>Tersedia</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sate Ayam</td>
-                                    <td>20000</td>
-                                    <td>2</td>
-                                    <td>Terbatas</td>
-                                </tr>
-                                <!-- Tambahkan data menu lainnya di sini -->
-                            </tbody>
-                        </table>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <!-- /.container-fluid -->
 
-</div>
-<!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
 
