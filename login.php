@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If result matched $no_id and $password, table row must be 1 row
     if ($count == 1) {
         $_SESSION['login_user'] = $no_id;
-        header("location: index.html");
+        header("location: Dashboard.html");
     } else {
         echo "Your Login ID or Password is invalid";
     }
