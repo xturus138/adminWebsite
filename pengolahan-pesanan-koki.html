@@ -336,97 +336,94 @@
                 <!-- End of Topbar -->
 
                <!-- Begin Page Content -->
-<div class="container-fluid">
+                <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Cek Stok Makanan</h1>
-    </div>
-
-    <!-- Form -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Form Cek Stok Makanan</h6>
-                </div>
-                <div class="card-body">
-                    <form id="cekStokForm">
-                        <div class="form-group">
-                            <label for="no_menu">No Menu</label>
-                            <input type="text" class="form-control" id="no_menu" name="no_menu" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_menu">Nama Menu</label>
-                            <input type="text" class="form-control" id="nama_menu" name="nama_menu" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="harga">Harga</label>
-                            <input type="number" class="form-control" id="harga" name="harga" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="stok">Stok</label>
-                            <input type="number" class="form-control" id="stok" name="stok" readonly>
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="cekStok()">Cek Stok</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tabel Menu -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Daftar Menu</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>No Menu</th>
-                                    <th>Nama Menu</th>
-                                    <th>Harga</th>
-                                    <th>Stok</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nasi Goreng</td>
-                                    <td>15000</td>
-                                    <td>10</td>
-                                    <td>Tersedia</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mie Goreng</td>
-                                    <td>13000</td>
-                                    <td>5</td>
-                                    <td>Tersedia</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Sate Ayam</td>
-                                    <td>20000</td>
-                                    <td>2</td>
-                                    <td>Terbatas</td>
-                                </tr>
-                                <!-- Tambahkan data menu lainnya di sini -->
-                            </tbody>
-                        </table>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Pengolahan Pesanan</h1>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-</div>
-<!-- /.container-fluid -->
+                    <!-- Edit Pesanan Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Edit Pesanan</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="editPesananForm">
+                                        <div class="form-group">
+                                            <label for="no_pesanan">No Pesanan</label>
+                                            <select class="form-control" id="no_pesanan" name="no_pesanan" required>
+                                                <option value="">Pilih Pesanan</option>
+                                                <!-- Assuming static options for now -->
+                                                <option value="1">1 - Pesanan A</option>
+                                                <option value="2">2 - Pesanan B</option>
+                                                <option value="3">3 - Pesanan C</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="status">Status</label>
+                                            <select class="form-control" id="status" name="status" required>
+                                                <option value="tunggu">Tunggu</option>
+                                                <option value="dibuat">Dibuat</option>
+                                            </select>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" onclick="editPesanan()">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Pesanan -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Daftar Pesanan</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>No Menu</th>
+                                                    <th>No Pesanan</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>1001</td>
+                                                    <td>2</td>
+                                                    <td>Tunggu</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>1002</td>
+                                                    <td>1</td>
+                                                    <td>Tunggu</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>1003</td>
+                                                    <td>3</td>
+                                                    <td>Tunggu</td>
+                                                </tr>
+                                                <!-- Tambahkan data pesanan lainnya di sini -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
 

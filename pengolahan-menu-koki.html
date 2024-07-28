@@ -340,45 +340,67 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Penambahan Menu</h1>
-                </div>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Pengolahan Menu</h1>
+                    </div>
 
-                <!-- Form -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Form Input Menu</h6>
-                            </div>
-                            <div class="card-body">
-                                <form action="proses_tambah_menu.php" method="post">
-                                    <div class="form-group">
-                                        <label for="no_menu">No Menu</label>
-                                        <input type="text" class="form-control" id="no_menu" name="no_menu" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nama_menu">Nama Menu</label>
-                                        <input type="text" class="form-control" id="nama_menu" name="nama_menu" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="harga">Harga</label>
-                                        <input type="number" class="form-control" id="harga" name="harga" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="stok">Stok</label>
-                                        <input type="number" class="form-control" id="stok" name="stok" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </form>
+                    <!-- Tambah Menu Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Tambah Menu</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form action="proses_tambah_menu.php" method="post">
+                                        <div class="form-group">
+                                            <label for="nama_menu">Nama Menu</label>
+                                            <input type="text" class="form-control" id="nama_menu" name="nama_menu" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="harga">Harga</label>
+                                            <input type="number" class="form-control" id="harga" name="harga" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-            <!-- /.container-fluid -->
+                    <!-- Edit Stok Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Edit Stok Menu</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form action="proses_edit_stok.php" method="post">
+                                        <div class="form-group">
+                                            <label for="no_menu">No Menu</label>
+                                            <select class="form-control" id="no_menu" name="no_menu" required>
+                                                <option value="">Pilih Menu</option>
+                                                <!-- Assuming static options for now -->
+                                                <option value="1">1 - Menu A</option>
+                                                <option value="2">2 - Menu B</option>
+                                                <option value="3">3 - Menu C</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="stok">Stok</label>
+                                            <input type="number" class="form-control" id="stok" name="stok" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
