@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Jul 2024 pada 18.43
+-- Waktu pembuatan: 28 Jul 2024 pada 18.56
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -24,12 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `isi`
+-- Struktur dari tabel `isi_pesanan`
 --
 
-CREATE TABLE `isi` (
-  `no_menu` varchar(8) NOT NULL,
-  `no_pesanan` varchar(8) NOT NULL,
+CREATE TABLE `isi_pesanan` (
+  `no_menu` int(11) NOT NULL,
+  `no_pesanan` int(11) NOT NULL,
   `jumlah` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -40,7 +40,7 @@ CREATE TABLE `isi` (
 --
 
 CREATE TABLE `meja` (
-  `no_meja` varchar(8) NOT NULL,
+  `no_meja` int(11) NOT NULL,
   `status` varchar(6) NOT NULL,
   `kapasitas` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -52,7 +52,7 @@ CREATE TABLE `meja` (
 --
 
 CREATE TABLE `menu` (
-  `no_menu` varchar(8) NOT NULL,
+  `no_menu` int(11) NOT NULL,
   `status` varchar(6) NOT NULL,
   `nama_menu` varchar(16) NOT NULL,
   `stok` int(3) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `menu` (
 --
 
 CREATE TABLE `pegawai` (
-  `no_id` varchar(8) NOT NULL,
+  `no_id` int(11) NOT NULL,
   `no_telp` varchar(13) NOT NULL,
   `jabatan` varchar(10) NOT NULL,
   `password` varchar(16) NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`no_id`, `no_telp`, `jabatan`, `password`, `nama`) VALUES
-('12345678', '821111', 'KOKI', '12345678', 'Bajingan');
+(12345678, '821111', 'KOKI', '12345678', 'Bajingan');
 
 -- --------------------------------------------------------
 
@@ -87,9 +87,9 @@ INSERT INTO `pegawai` (`no_id`, `no_telp`, `jabatan`, `password`, `nama`) VALUES
 --
 
 CREATE TABLE `pesanan` (
-  `no_pesanan` varchar(8) NOT NULL,
-  `no_meja` varchar(8) NOT NULL,
-  `no_id` varchar(8) NOT NULL,
+  `no_pesanan` int(11) NOT NULL,
+  `no_meja` int(11) NOT NULL,
+  `no_id` int(11) NOT NULL,
   `total` decimal(9,2) NOT NULL,
   `tanggal` date NOT NULL,
   `status` varchar(6) NOT NULL
@@ -122,6 +122,34 @@ ALTER TABLE `pegawai`
 --
 ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`no_pesanan`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `meja`
+--
+ALTER TABLE `meja`
+  MODIFY `no_meja` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `no_menu` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pegawai`
+--
+ALTER TABLE `pegawai`
+  MODIFY `no_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12345679;
+
+--
+-- AUTO_INCREMENT untuk tabel `pesanan`
+--
+ALTER TABLE `pesanan`
+  MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
