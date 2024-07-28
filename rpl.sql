@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Jul 2024 pada 13.14
+-- Waktu pembuatan: 28 Jul 2024 pada 18.43
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `isi` (
 
 CREATE TABLE `meja` (
   `no_meja` varchar(8) NOT NULL,
-  `status` varchar(5) NOT NULL,
+  `status` varchar(6) NOT NULL,
   `kapasitas` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -53,7 +53,7 @@ CREATE TABLE `meja` (
 
 CREATE TABLE `menu` (
   `no_menu` varchar(8) NOT NULL,
-  `status` varchar(5) NOT NULL,
+  `status` varchar(6) NOT NULL,
   `nama_menu` varchar(16) NOT NULL,
   `stok` int(3) NOT NULL,
   `harga` decimal(9,2) NOT NULL
@@ -92,7 +92,7 @@ CREATE TABLE `pesanan` (
   `no_id` varchar(8) NOT NULL,
   `total` decimal(9,2) NOT NULL,
   `tanggal` date NOT NULL,
-  `status` varchar(5) NOT NULL
+  `status` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
