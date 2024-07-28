@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jul 2024 pada 16.38
+-- Waktu pembuatan: 28 Jul 2024 pada 12.19
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -67,11 +67,18 @@ CREATE TABLE `menu` (
 
 CREATE TABLE `pegawai` (
   `no_id` varchar(8) NOT NULL,
-  `no_telp` int(13) NOT NULL,
+  `no_telp` varchar(13) NOT NULL,
   `jabatan` varchar(10) NOT NULL,
   `password` varchar(16) NOT NULL,
   `nama` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pegawai`
+--
+
+INSERT INTO `pegawai` (`no_id`, `no_telp`, `jabatan`, `password`, `nama`) VALUES
+('12345678', '813', 'koki', 'raditya138', 'raditya138');
 
 -- --------------------------------------------------------
 
