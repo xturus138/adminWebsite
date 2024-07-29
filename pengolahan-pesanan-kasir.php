@@ -99,7 +99,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item active" href="TPesanan-kasir.html">Total Pesanan</a>
+                        <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
                         <a class="collapse-item" href="Lkeuangan-kasir.html">Laporan Keuangan</a>
                     </div>
                 </div>
@@ -337,10 +337,8 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Pesanan</h1>
-
                     <!-- Orders Tab -->
                     <div id="orders" class="tab-content">
                         <p class="mb-4">Daftar Pesanan Dari Semua Pelanggan.</p>
@@ -349,41 +347,76 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Tabel Pesanan</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th class ="text-center" style="width: 20%;">Nomor Pesanan</th>
-                                                <th class ="text-center" style="width: 40%;">Total</th>
-                                                <th class ="text-center" style="width: 40%;">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="orders-table-body">
-                                            <!-- Orders will be populated here by JavaScript -->
-                                            <tr>
-                                                <td>19</td>
-                                                <td>1</td>
-                                                <td>Selesai</td>
-                                            </tr>
-                                            <tr>
-                                                <td>22</td>
-                                                <td>2</td>
-                                                <td>Selesai</td>
-                                            </tr>
-                                            <tr>
-                                                <td>31</td>
-                                                <td>3</td>
-                                                <td>Selesai</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" style="width: 12%;">Nomor Pesanan</th>
+                                    <th class="text-center" style="width: 20%;">Tanggal</th>
+                                    <th class="text-center" style="width: 18%;">Nama Menu</th>
+                                    <th class="text-center" style="width: 10%;">Jumlah</th>
+                                    <th class="text-center" style="width: 20%;">Total</th>
+                                    <th class="text-center" style="width: 20%;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <?php
+                                include 'config.php'; 
+                                // Define statuses to include
+                                $statuses = ["Diproses", "Selesai"]; 
+
+                                // SQL query to fetch orders
+                                $sql = "SELECT o.no_pesanan, o.tanggal, m.nama_menu, ip.jumlah, SUM(m.harga * ip.jumlah) as total, o.status
+                                        FROM pesanan o
+                                        JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
+                                        JOIN menu m ON ip.no_menu = m.no_menu
+                                        GROUP BY o.no_pesanan, o.tanggal, m.nama_menu, ip.jumlah, o.status";
+
+                                $result = mysqli_query($db, $sql);
+
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        // Determine button class based on status
+                                        $status = $row['status'];
+                                        $btnClass = 'btn-warning'; // Default button class
+
+                                        if ($status == 'Selesai') {
+                                            $btnClass = 'btn-success';
+                                        }
+
+                                        echo "<tr>
+                                            <td>{$row['no_pesanan']}</td>
+                                            <td>{$row['tanggal']}</td>
+                                            <td>{$row['nama_menu']}</td>
+                                            <td>{$row['jumlah']}</td>
+                                            <td>{$row['total']}</td>
+                                            <td>
+                                                <div class='dropdown'>
+                                                    <button class='btn $btnClass dropdown-toggle' type='button' id='statusDropdown{$row['no_pesanan']}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                        {$status}
+                                                    </button>
+                                                    <div class='dropdown-menu' aria-labelledby='statusDropdown{$row['no_pesanan']}'>
+                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='Diproses' onclick='updateStatus(this)'>Diproses</a>
+                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='Selesai' onclick='updateStatus(this)'>Selesai</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='6'>Pesanan tidak ditemukan</td></tr>";
+                                }
+
+                                mysqli_close($db);
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 <!-- /.container-fluid -->
-
-            </div>
             </div>
             <!-- End of Main Content -->
 
@@ -437,6 +470,37 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Updated data in database function -->
+    <script>
+        function updateStatus(element) {
+            var orderId = $(element).data('id');
+            var status = $(element).data('status');
+            var button = $('#statusDropdown' + orderId);
+
+            $.ajax({
+                url: 'pengolahan-pesanan-status-kasir.php',
+                type: 'POST',
+                data: {
+                    no_pesanan: orderId,
+                    status: status
+                },
+                success: function(response) {
+                    // Update button text and class based on the new status
+                    button.text(status);
+                    button.removeClass('btn-warning btn-success');
+                    if (status === 'Diproses') {
+                        button.addClass('btn-warning');
+                    } else if (status === 'Selesai') {
+                        button.addClass('btn-success');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Error updating status');
+                }
+            });
+        }
+    </script>
 
 </body>
 

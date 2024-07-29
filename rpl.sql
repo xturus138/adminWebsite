@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jul 2024 pada 06.25
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: Jul 29, 2024 at 01:11 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `isi_pesanan`
+-- Table structure for table `isi_pesanan`
 --
 
 CREATE TABLE `isi_pesanan` (
@@ -33,37 +33,45 @@ CREATE TABLE `isi_pesanan` (
   `jumlah` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `isi_pesanan`
+--
+
+INSERT INTO `isi_pesanan` (`no_menu`, `no_pesanan`, `jumlah`) VALUES
+(2, 1, 2),
+(4, 2, 1);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `meja`
+-- Table structure for table `meja`
 --
 
 CREATE TABLE `meja` (
   `no_meja` int(11) NOT NULL,
-  `status` varchar(6) NOT NULL,
+  `status_meja` varchar(15) NOT NULL,
   `kapasitas` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `menu`
+-- Table structure for table `menu`
 --
 
 CREATE TABLE `menu` (
   `no_menu` int(11) NOT NULL,
-  `status` varchar(6) NOT NULL,
+  `status_menu` varchar(15) NOT NULL,
   `nama_menu` varchar(16) NOT NULL,
   `stok` int(3) NOT NULL,
   `harga` decimal(9,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `menu`
+-- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`no_menu`, `status`, `nama_menu`, `stok`, `harga`) VALUES
+INSERT INTO `menu` (`no_menu`, `status_menu`, `nama_menu`, `stok`, `harga`) VALUES
 (1, 'tunda', 'Babi Bakar', 0, 30000.00),
 (2, 'setuju', 'Ayam Bakar', 200, 15000.00),
 (3, 'tunda', 'Soto Ayam', 0, 12000.00),
@@ -74,7 +82,7 @@ INSERT INTO `menu` (`no_menu`, `status`, `nama_menu`, `stok`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pegawai`
+-- Table structure for table `pegawai`
 --
 
 CREATE TABLE `pegawai` (
@@ -86,7 +94,7 @@ CREATE TABLE `pegawai` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pegawai`
+-- Dumping data for table `pegawai`
 --
 
 INSERT INTO `pegawai` (`no_id`, `no_telp`, `jabatan`, `password`, `nama`) VALUES
@@ -95,7 +103,7 @@ INSERT INTO `pegawai` (`no_id`, `no_telp`, `jabatan`, `password`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pesanan`
+-- Table structure for table `pesanan`
 --
 
 CREATE TABLE `pesanan` (
@@ -104,16 +112,16 @@ CREATE TABLE `pesanan` (
   `no_id` int(11) NOT NULL,
   `total` decimal(9,2) NOT NULL,
   `tanggal` date NOT NULL,
-  `status` varchar(6) NOT NULL
+  `status_pesanan` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pesanan`
+-- Dumping data for table `pesanan`
 --
 
-INSERT INTO `pesanan` (`no_pesanan`, `no_meja`, `no_id`, `total`, `tanggal`, `status`) VALUES
-(1, 1, 12345678, 50000.00, '2024-07-11', 'tunggu'),
-(2, 2, 2121212, 30000.00, '2024-07-20', 'tunggu'),
+INSERT INTO `pesanan` (`no_pesanan`, `no_meja`, `no_id`, `total`, `tanggal`, `status_pesanan`) VALUES
+(1, 1, 12345678, 50000.00, '2024-07-11', 'beres'),
+(2, 2, 2121212, 30000.00, '2024-07-20', 'Diproses'),
 (3, 3, 12345678, 40000.00, '2024-07-10', 'tunggu');
 
 --
@@ -121,53 +129,53 @@ INSERT INTO `pesanan` (`no_pesanan`, `no_meja`, `no_id`, `total`, `tanggal`, `st
 --
 
 --
--- Indeks untuk tabel `meja`
+-- Indexes for table `meja`
 --
 ALTER TABLE `meja`
   ADD PRIMARY KEY (`no_meja`);
 
 --
--- Indeks untuk tabel `menu`
+-- Indexes for table `menu`
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`no_menu`);
 
 --
--- Indeks untuk tabel `pegawai`
+-- Indexes for table `pegawai`
 --
 ALTER TABLE `pegawai`
   ADD PRIMARY KEY (`no_id`);
 
 --
--- Indeks untuk tabel `pesanan`
+-- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`no_pesanan`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `meja`
+-- AUTO_INCREMENT for table `meja`
 --
 ALTER TABLE `meja`
   MODIFY `no_meja` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `menu`
+-- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `no_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `pegawai`
+-- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
   MODIFY `no_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12345679;
 
 --
--- AUTO_INCREMENT untuk tabel `pesanan`
+-- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
   MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
