@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Jul 2024 pada 18.56
+-- Waktu pembuatan: 29 Jul 2024 pada 05.47
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -58,6 +58,18 @@ CREATE TABLE `menu` (
   `stok` int(3) NOT NULL,
   `harga` decimal(9,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `menu`
+--
+
+INSERT INTO `menu` (`no_menu`, `status`, `nama_menu`, `stok`, `harga`) VALUES
+(1, 'tunda', 'Babi Bakar', 0, 30000.00),
+(2, 'setuju', 'Ayam Bakar', 200, 15000.00),
+(3, 'tunda', 'Soto Ayam', 0, 12000.00),
+(4, 'setuju', 'Cangkalang', 100, 17000.00),
+(5, 'setuju', 'Sosis Bakar', 50, 12000.00),
+(6, 'setuju', 'Sayur Bakar', 3, 5000.00);
 
 -- --------------------------------------------------------
 
@@ -137,7 +149,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT untuk tabel `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `no_menu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `pegawai`

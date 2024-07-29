@@ -379,8 +379,8 @@
                         die("Query failed: " . mysqli_error($db));
                     }
                     ?>
-                    <!-- Tabel Menu dengan Status "Setuju" -->
-                    <div class="row mt-4">
+                    <!-- Tabel Menu -->
+                    <div class="row">
                         <div class="col-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -394,6 +394,7 @@
                                                 <th>Nama Menu</th>
                                                 <th>Stok</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -405,6 +406,9 @@
                                                 echo "<td>" . htmlspecialchars($row['nama_menu']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['stok']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                                                echo "<td>
+                                                        <a href='pengolahan-menu-edit-koki.php?id=" . $row['no_menu'] . "' class='btn btn-primary btn-sm'>Edit</a>
+                                                    </td>";
                                                 echo "</tr>";
                                             }
                                             ?>
@@ -414,6 +418,7 @@
                             </div>
                         </div>
                     </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
