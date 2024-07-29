@@ -348,31 +348,73 @@
                 <div class="col-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Daftar Pesanan</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Semua Pesanan</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>No Menu</th>
-                                            <th>No Pesanan</th>
-                                            <th>Jumlah</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="ordersTableBody">
-                                        <!-- Data will be populated dynamically -->
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Meja</th>
+                                        <th>No ID</th>
+                                        <th>Total</th>
+                                        <th>Tanggal</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include 'config.php'; // Include database connection
+
+                                    // Query to select all pesanan
+                                    $query = "SELECT * FROM pesanan";
+                                    $result = mysqli_query($db, $query);
+
+                                    $no = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $no++ . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['no_meja']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['total']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+
+                                        // Determine the action based on the current status
+                                        $status = $row['status'];
+                                        if ($status == 'tunggu') {
+                                            $nextStatus = 'masak';
+                                            $buttonText = 'Masak';
+                                            $buttonClass = 'btn-primary';
+                                        } elseif ($status == 'masak') {
+                                            $nextStatus = 'beres';
+                                            $buttonText = 'Selesai';
+                                            $buttonClass = 'btn-success';
+                                        } else {
+                                            $nextStatus = 'tunggu';
+                                            $buttonText = 'Tunggu';
+                                            $buttonClass = 'btn-warning';
+                                        }
+
+                                        echo "<td>
+                                                <a href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status=" . $nextStatus . "' class='btn $buttonClass btn-sm'>$buttonText</a>
+                                            </td>";
+                                        echo "</tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
             </div>
-        </div>
+            </div>
+            </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
