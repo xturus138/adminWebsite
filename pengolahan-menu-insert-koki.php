@@ -12,12 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_query($db, $sql)) {
         echo "<script>
                 alert('Menu Berhasil Dibuat');
-                window.location.href='pengolahan-menu-koki.html';
+                window.location.href='pengolahan-menu-koki.php';
               </script>";
     } else {
         echo "<script>
                 alert('Error: " . $sql . "<br>" . mysqli_error($db) . "');
-                window.location.href='pengolahan-menu-koki.html';
+                window.location.href='pengolahan-menu-koki.php';
               </script>";
     }
 
