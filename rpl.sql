@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jul 2024 pada 05.47
+-- Waktu pembuatan: 29 Jul 2024 pada 06.25
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -108,6 +108,15 @@ CREATE TABLE `pesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data untuk tabel `pesanan`
+--
+
+INSERT INTO `pesanan` (`no_pesanan`, `no_meja`, `no_id`, `total`, `tanggal`, `status`) VALUES
+(1, 1, 12345678, 50000.00, '2024-07-11', 'tunggu'),
+(2, 2, 2121212, 30000.00, '2024-07-20', 'tunggu'),
+(3, 3, 12345678, 40000.00, '2024-07-10', 'tunggu');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -161,7 +170,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `no_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
