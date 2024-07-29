@@ -359,35 +359,34 @@
                         font-size: 1.75rem;
                         margin-bottom: 20px;
                     }
-                    .menu-section {
-                        margin-bottom: 20px;
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-top: 20px;
                     }
-                    .menu-section h2 {
-                        border-bottom: 2px solid #e3e6f0;
-                        padding-bottom: 10px;
-                        color: #1cc88a;
-                        font-size: 1.25rem;
-                        margin-bottom: 15px;
+                    table, th, td {
+                        border: 1px solid #dee2e6;
                     }
-                    .menu-item {
-                        display: flex;
-                        justify-content: space-between;
-                        padding: 10px 0;
-                        border-bottom: 1px solid #e3e6f0;
+                    th, td {
+                        padding: 12px;
+                        text-align: left;
                     }
-                    .menu-item:last-child {
-                        border-bottom: none;
+                    th {
+                        background-color: #4e73df;
+                        color: #fff;
                     }
-                    .menu-item input[type="number"] {
+                    tr:nth-child(even) {
+                        background-color: #f2f2f2;
+                    }
+                    input[type="number"] {
                         width: 60px;
-                        text-align: center;
-                        border: 1px solid #d1d3e2;
-                        border-radius: 5px;
                         padding: 5px;
+                        border: 1px solid #ced4da;
+                        border-radius: 4px;
                     }
                     .submit-btn {
                         display: block;
-                        width: 100%;
+                        width: 25%;
                         padding: 15px;
                         background-color: #4e73df;
                         color: white;
@@ -396,6 +395,8 @@
                         cursor: pointer;
                         font-size: 18px;
                         font-weight: bold;
+                        margin: 0 auto; 
+                        text-align: center;
                     }
                     .submit-btn:hover {
                         background-color: #2e59d9;
@@ -460,46 +461,53 @@
                         <label for="order-status">Status Pesanan:</label>
                         <select id="order-status" name="order_status" required>
                             <option value="" disabled selected>Pilih Status</option>
-                            <option value="DINE IN">DINE IN</option>
-                            <option value="TAKE AWAY">TAKE AWAY</option>
+                            <option value="dine in">Dine In</option>
+                            <option value="take away">Take Away</option>
                         </select>
                     </div>
 
-                    <!-- <div class="menu-section">
-                        <h2>Makanan</h2>
-                        <div class="menu-item">
-                            <span>Nasi Goreng</span>
-                            <input type="number" name="nasi_goreng" min="0" placeholder="0">
-                        </div>
-                        <div class="menu-item">
-                            <span>Mie Goreng</span>
-                            <input type="number" name="mie_goreng" min="0" placeholder="0">
-                        </div>
-                        <div class="menu-item">
-                            <span>Sate Ayam</span>
-                            <input type="number" name="sate_ayam" min="0" placeholder="0">
-                        </div>
-                    </div>
-
                     <div class="menu-section">
-                        <h2>Minuman</h2>
-                        <div class="menu-item">
-                            <span>Teh Manis</span>
-                            <input type="number" name="teh_manis" min="0" placeholder="0">
-                        </div>
-                        <div class="menu-item">
-                            <span>Kopi</span>
-                            <input type="number" name="kopi" min="0" placeholder="0">
-                        </div>
-                        <div class="menu-item">
-                            <span>Jus Jeruk</span>
-                            <input type="number" name="jus_jeruk" min="0" placeholder="0">
-                        </div>
-                    </div> -->
+                    <hr>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Menu</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Fetch menu data from the database
+                            $query = "SELECT no_menu, nama_menu, harga, stok FROM menu WHERE status_menu = 'setuju'";
+                            $result = mysqli_query($db, $query);
 
-                    <button type="submit" class="submit-btn">Catat Pesanan</button>
-                </form>
-            </div>
+                            // Display menu items in the table
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $no_menu = $row['no_menu'];
+                                $nama_menu = $row['nama_menu'];
+                                $harga = $row['harga'];
+                                $stok = $row['stok'];
+
+                                echo "<tr>";
+                                echo "<td>$no_menu</td>";
+                                echo "<td>$nama_menu</td>";
+                                echo "<td>$harga</td>";
+                                echo "<td>$stok</td>";
+                                echo "<td><input type='number' name='jumlah_$no_menu' min='0' max='$stok' placeholder='0'></td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
+        <button type="submit" class="submit-btn">Catat Pesanan</button>
+    </form>
+</div>
             </body>
 
 
