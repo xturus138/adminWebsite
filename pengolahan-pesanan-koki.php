@@ -67,7 +67,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Menu Koki</h6>
                     <a class="collapse-item" href="pengolahan-menu-koki.php">Pengolahan Menu</a>
-                    <a class="collapse-item active" href="pengolahan-pesanan-koki.html">Pengelohan Pesanan</a>
+                    <a class="collapse-item active" href="pengolahan-pesanan-koki.php">Pengelohan Pesanan</a>
                 </div>
             </div>
         </li>
@@ -335,97 +335,44 @@
                 </nav>
                 <!-- End of Topbar -->
 
-               <!-- Begin Page Content -->
-                <div class="container-fluid">
+              <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Pengolahan Pesanan</h1>
-                    </div>
-
-                    <!-- Edit Pesanan Form -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Edit Pesanan</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form id="editPesananForm">
-                                        <div class="form-group">
-                                            <label for="no_pesanan">No Pesanan</label>
-                                            <select class="form-control" id="no_pesanan" name="no_pesanan" required>
-                                                <option value="">Pilih Pesanan</option>
-                                                <!-- Assuming static options for now -->
-                                                <option value="1">1 - Pesanan A</option>
-                                                <option value="2">2 - Pesanan B</option>
-                                                <option value="3">3 - Pesanan C</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="status">Status</label>
-                                            <select class="form-control" id="status" name="status" required>
-                                                <option value="tunggu">Tunggu</option>
-                                                <option value="dibuat">Dibuat</option>
-                                            </select>
-                                        </div>
-                                        <button type="button" class="btn btn-primary" onclick="editPesanan()">Simpan</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tabel Pesanan -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Daftar Pesanan</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>No Menu</th>
-                                                    <th>No Pesanan</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>1001</td>
-                                                    <td>2</td>
-                                                    <td>Tunggu</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>1002</td>
-                                                    <td>1</td>
-                                                    <td>Tunggu</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>1003</td>
-                                                    <td>3</td>
-                                                    <td>Tunggu</td>
-                                                </tr>
-                                                <!-- Tambahkan data pesanan lainnya di sini -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Pengolahan Pesanan</h1>
             </div>
-            <!-- End of Main Content -->
+
+            <!-- Tabel Pesanan -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Daftar Pesanan</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>No Menu</th>
+                                            <th>No Pesanan</th>
+                                            <th>Jumlah</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ordersTableBody">
+                                        <!-- Data will be populated dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">

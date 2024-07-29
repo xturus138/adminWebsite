@@ -67,7 +67,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Menu Koki</h6>
                     <a class="collapse-item active" href="pengolahan-menu-koki.html">Pengolahan Menu</a>
-                    <a class="collapse-item" href="pengolahan-pesanan-koki.html">Pengelohan Pesanan</a>
+                    <a class="collapse-item" href="pengolahan-pesanan-koki.php">Pengelohan Pesanan</a>
                 </div>
             </div>
         </li>
@@ -370,8 +370,6 @@
                     </div>
                     <?php
                     include 'config.php';
-
-                    // Fetch menus with status 'setuju'
                     $query = "SELECT * FROM menu WHERE status = 'setuju'";
                     $result = mysqli_query($db, $query);
 
