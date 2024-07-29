@@ -66,7 +66,7 @@
             <div id="collapseKoki" class="collapse show" aria-labelledby="headingKoki" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Menu Koki</h6>
-                    <a class="collapse-item active" href="pengolahan-menu-koki.html">Pengolahan Menu</a>
+                    <a class="collapse-item active" href="pengolahan-menu-koki.php">Pengolahan Menu</a>
                     <a class="collapse-item" href="pengolahan-pesanan-koki.php">Pengelohan Pesanan</a>
                 </div>
             </div>
