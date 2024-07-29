@@ -82,7 +82,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
-                        <a class="collapse-item active" href="pesanan-pelayan.php">Pencatatan Pesanan</a>
+                        <a class="collapse-item active" href="pesanan-pelayan.php">Pemesanan</a>
                     </div>
                 </div>
             </li>
@@ -335,192 +335,163 @@
                 <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <?php
-include 'config.php';
-
-// Mengambil data dari tabel meja
-$sql = "SELECT no_meja, status_meja FROM meja";
-$result = $db->query($sql);
-
-$table_numbers = array();
-if ($result->num_rows > 0) {
-    // Masukkan data ke dalam array
-    while ($row = $result->fetch_assoc()) {
-        $table_numbers[] = $row;
-    }
-}
-
-// Mengambil data dari tabel menu
-$sql_menu = "SELECT nama_menu, harga FROM menu";
-$result_menu = $db->query($sql_menu);
-
-$menu_items = array();
-if ($result_menu->num_rows > 0) {
-    // Masukkan data ke dalam array
-    while ($row = $result_menu->fetch_assoc()) {
-        $menu_items[] = $row;
-    }
-}
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Menu Pencatatan Pesanan</title>
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fc;
-        }
-        .container {
-            width: 100%;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-        h1 {
-            text-align: center;
-            color: #4e73df;
-            font-size: 1.75rem;
-            margin-bottom: 20px;
-        }
-        .menu-section {
-            margin-bottom: 20px;
-        }
-        .menu-section h2 {
-            border-bottom: 2px solid #e3e6f0;
-            padding-bottom: 10px;
-            color: #1cc88a;
-            font-size: 1.25rem;
-            margin-bottom: 15px;
-        }
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e3e6f0;
-        }
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-        .menu-item input[type="number"] {
-            width: 60px;
-            text-align: center;
-            border: 1px solid #d1d3e2;
-            border-radius: 5px;
-            padding: 5px;
-        }
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background-color: #4e73df;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .submit-btn:hover {
-            background-color: #2e59d9;
-        }
-        .table-number {
-            margin-bottom: 20px;
-        }
-        .table-number label {
-            font-weight: bold;
-        }
-        .table-number select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #d1d3e2;
-            border-radius: 5px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #e3e6f0;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Menu Pencatatan Pesanan</h1>
-
-    <form action="submit_order.php" method="POST">
-        <div class="table-number">
-            <label for="table-number">Nomor Meja:</label>
-            <select id="table-number" name="table_number" required>
-                <option value="" disabled selected>Pilih Nomor Meja</option>
-                <?php
-                if (!empty($table_numbers)) {
-                    foreach ($table_numbers as $table) {
-                        $status = '';
-                        if ($table['status_meja'] == 'dineIn') {
-                            $status = ' (Dine In)';
-                        } elseif ($table['status_meja'] == 'takeAway') {
-                            $status = ' (Take Away)';
-                        } elseif ($table['status_meja'] == 'kosong') {
-                            $status = ' (KOSONG)';
-                        }
-                        echo "<option value=\"{$table['no_meja']}\">Meja {$table['no_meja']}{$status}</option>";
+            <head>
+            <meta charset="UTF-8">
+            <title>Menu Pencatatan Pesanan</title>
+            <style>
+                    body {
+                        font-family: 'Nunito', sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f8f9fc;
                     }
-                }
-                ?>
-            </select>
-        </div>
-
-        <div class="menu-section">
-            <h2>Menu</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nama Menu</th>
-                        <th>Harga</th>
-                        <th>Jumlah</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if (!empty($menu_items)) {
-                        foreach ($menu_items as $menu) {
-                            echo "<tr>
-                                    <td>{$menu['nama_menu']}</td>
-                                    <td>{$menu['harga']}</td>
-                                    <td><input type=\"number\" name=\"menu_{$menu['nama_menu']}\" min=\"0\" placeholder=\"0\"></td>
-                                  </tr>";
-                        }
+                    .container {
+                        width: 100%;
+                        padding: 20px;
+                        background-color: #fff;
+                        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+                        border-radius: 5px;
+                        margin-top: 30px;
                     }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+                    h1 {
+                        text-align: center;
+                        color: #4e73df;
+                        font-size: 1.75rem;
+                        margin-bottom: 20px;
+                    }
+                    .menu-section {
+                        margin-bottom: 20px;
+                    }
+                    .menu-section h2 {
+                        border-bottom: 2px solid #e3e6f0;
+                        padding-bottom: 10px;
+                        color: #1cc88a;
+                        font-size: 1.25rem;
+                        margin-bottom: 15px;
+                    }
+                    .menu-item {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 10px 0;
+                        border-bottom: 1px solid #e3e6f0;
+                    }
+                    .menu-item:last-child {
+                        border-bottom: none;
+                    }
+                    .menu-item input[type="number"] {
+                        width: 60px;
+                        text-align: center;
+                        border: 1px solid #d1d3e2;
+                        border-radius: 5px;
+                        padding: 5px;
+                    }
+                    .submit-btn {
+                        display: block;
+                        width: 100%;
+                        padding: 15px;
+                        background-color: #4e73df;
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+                    .submit-btn:hover {
+                        background-color: #2e59d9;
+                    }
+                    .table-number {
+                        margin-bottom: 20px;
+                    }
+                    .table-number label {
+                        font-weight: bold;
+                    }
+                    .table-number select {
+                        width: 100%;
+                        padding: 10px;
+                        border: 1px solid #d1d3e2;
+                        border-radius: 5px;
+                    }
+                </style>
+            </head>
+            <body>
+            <div class="container">
+                <h1>Menu Pencatatan Pesanan</h1>
 
-        <button type="submit" class="submit-btn">Catat Pesanan</button>
-    </form>
-</div>
-</body>
-</html>
+                <form action="submit_order.html" method="POST">
+                    <div class="table-number">
+                        <label for="table-number">Nomor Meja:</label>
+                        <select id="table-number" name="table_number" required>
+                            <option value="" disabled selected>Pilih Nomor Meja</option>
 
-<?php
-$db->close();
-?>
+                            <?php
+                            // Connect to the database
+                            include('config.php');
+                            
+                            // Fetch table numbers, capacities, and statuses from the database
+                            $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
+                            $result = mysqli_query($db, $query);
+                            
+                            // Generate options dynamically from the fetched data
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $no_meja = $row['no_meja'];
+                                $kapasitas = $row['kapasitas'];
+                                $status_meja = $row['status_meja'];
+                                echo "<option value=\"$no_meja\">Meja $no_meja - Kapasitas: $kapasitas - Status: $status_meja</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="order-status">
+                        <label for="order-status">Status Pesanan:</label>
+                        <select id="order-status" name="order_status" required>
+                            <option value="" disabled selected>Pilih Status</option>
+                            <option value="DINE IN">DINE IN</option>
+                            <option value="TAKE AWAY">TAKE AWAY</option>
+                        </select>
+                    </div>
+
+                    <!-- <div class="menu-section">
+                        <h2>Makanan</h2>
+                        <div class="menu-item">
+                            <span>Nasi Goreng</span>
+                            <input type="number" name="nasi_goreng" min="0" placeholder="0">
+                        </div>
+                        <div class="menu-item">
+                            <span>Mie Goreng</span>
+                            <input type="number" name="mie_goreng" min="0" placeholder="0">
+                        </div>
+                        <div class="menu-item">
+                            <span>Sate Ayam</span>
+                            <input type="number" name="sate_ayam" min="0" placeholder="0">
+                        </div>
+                    </div>
+
+                    <div class="menu-section">
+                        <h2>Minuman</h2>
+                        <div class="menu-item">
+                            <span>Teh Manis</span>
+                            <input type="number" name="teh_manis" min="0" placeholder="0">
+                        </div>
+                        <div class="menu-item">
+                            <span>Kopi</span>
+                            <input type="number" name="kopi" min="0" placeholder="0">
+                        </div>
+                        <div class="menu-item">
+                            <span>Jus Jeruk</span>
+                            <input type="number" name="jus_jeruk" min="0" placeholder="0">
+                        </div>
+                    </div> -->
+
+                    <button type="submit" class="submit-btn">Catat Pesanan</button>
+                </form>
+            </div>
+            </body>
 
 
 
+               
             <!-- End of Page Content -->
 
             <!-- Footer -->
