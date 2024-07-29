@@ -97,7 +97,7 @@
                 <div id="collapseKasir" class="collapse" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item" href="TPesanan-kasir.html">Total Pesanan</a>
+                        <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
                         <a class="collapse-item" href="Lkeuangan-kasir.html">Laporan Keuangan</a>
                     </div>
                 </div>
@@ -412,7 +412,6 @@
                         border: 1px solid #d1d3e2;
                         border-radius: 5px;
                     }
-                }
                     .order-status {
                         margin-bottom: 20px;
                     }
