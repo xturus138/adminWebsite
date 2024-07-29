@@ -370,7 +370,7 @@
                     </div>
                     <?php
                     include 'config.php';
-                    $query = "SELECT * FROM menu WHERE status = 'setuju'";
+                    $query = "SELECT * FROM menu WHERE status_menu = 'setuju'";
                     $result = mysqli_query($db, $query);
 
                     if (!$result) {
@@ -403,7 +403,7 @@
                                                 echo "<td>" . $no++ . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['nama_menu']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['stok']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['status_menu']) . "</td>";
                                                 echo "<td>
                                                         <a href='pengolahan-menu-edit-koki.php?id=" . $row['no_menu'] . "' class='btn btn-primary btn-sm'>Edit</a>
                                                     </td>";

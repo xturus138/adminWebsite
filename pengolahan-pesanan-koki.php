@@ -378,16 +378,16 @@
                                         echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['total']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['status_pesanan']) . "</td>";
 
                                         // Determine the action based on the current status
-                                        $status = $row['status'];
-                                        if ($status == 'tunggu') {
+                                        $status_pesanan = $row['status_pesanan'];
+                                        if ($status_pesanan == 'tunggu') {
                                             $nextStatus = 'masak';
                                             $buttonText = 'Masak';
                                             $buttonClass = 'btn-primary';
-                                        } elseif ($status == 'masak') {
-                                            $nextStatus = 'beres';
+                                        } elseif ($status_pesanan == 'masak') {
+                                            $nextStatus = 'selesai';
                                             $buttonText = 'Selesai';
                                             $buttonClass = 'btn-success';
                                         } else {
@@ -397,7 +397,7 @@
                                         }
 
                                         echo "<td>
-                                                <a href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status=" . $nextStatus . "' class='btn $buttonClass btn-sm'>$buttonText</a>
+                                                <a href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=" . $nextStatus . "' class='btn $buttonClass btn-sm'>$buttonText</a>
                                             </td>";
                                         echo "</tr>";
                                     }

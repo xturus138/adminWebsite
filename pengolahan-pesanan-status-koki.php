@@ -1,12 +1,12 @@
 <?php
 include 'config.php'; // Include database connection
 
-if (isset($_GET['id']) && isset($_GET['status'])) {
+if (isset($_GET['id']) && isset($_GET['status_pesanan'])) {
     $no_pesanan = intval($_GET['id']); // Get the id from the URL
-    $status = mysqli_real_escape_string($db, $_GET['status']); // Get the new status from the URL
+    $status_pesanan = mysqli_real_escape_string($db, $_GET['status_pesanan']); // Get the new status from the URL
 
     // Update the status to the new value
-    $query = "UPDATE pesanan SET status = '$status' WHERE no_pesanan = $no_pesanan";
+    $query = "UPDATE pesanan SET status_pesanan = '$status_pesanan' WHERE no_pesanan = $no_pesanan";
     $result = mysqli_query($db, $query);
 
     if ($result) {

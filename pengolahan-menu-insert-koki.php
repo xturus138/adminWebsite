@@ -4,10 +4,10 @@ include 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama_menu = mysqli_real_escape_string($db, $_POST['nama_menu']);
     $harga = mysqli_real_escape_string($db, $_POST['harga']);
-    $status = "tunda"; // default status
+    $status_menu = "tunda"; // default status
     $stok = 0; // default stock for new menu items
 
-    $sql = "INSERT INTO menu (nama_menu, harga, status, stok) VALUES ('$nama_menu', '$harga', '$status', '$stok')";
+    $sql = "INSERT INTO menu (nama_menu, harga, status_menu, stok) VALUES ('$nama_menu', '$harga', '$status_menu', '$stok')";
 
     if (mysqli_query($db, $sql)) {
         echo "<script>
