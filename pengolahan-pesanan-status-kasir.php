@@ -5,7 +5,8 @@ if (isset($_POST['no_pesanan']) && isset($_POST['status'])) {
     $no_pesanan = $_POST['no_pesanan'];
     $status = $_POST['status'];
 
-    $sql = "UPDATE pesanan SET status='$status' WHERE no_pesanan='$no_pesanan'";
+    // Correct the column name in the update query
+    $sql = "UPDATE pesanan SET status_pesanan='$status' WHERE no_pesanan='$no_pesanan'";
 
     if (mysqli_query($db, $sql)) {
         echo "Record updated successfully";
@@ -16,4 +17,3 @@ if (isset($_POST['no_pesanan']) && isset($_POST['status'])) {
     mysqli_close($db);
 }
 ?>
-
