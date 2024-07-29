@@ -412,13 +412,26 @@
                         border: 1px solid #d1d3e2;
                         border-radius: 5px;
                     }
+                }
+                    .order-status {
+                        margin-bottom: 20px;
+                    }
+                    .order-status label {
+                        font-weight: bold;
+                    }
+                    .order-status select {
+                        width: 100%;
+                        padding: 10px;
+                        border: 1px solid #d1d3e2;
+                        border-radius: 5px;
+                    }
                 </style>
             </head>
             <body>
             <div class="container">
                 <h1>Menu Pencatatan Pesanan</h1>
 
-                <form action="submit_order.html" method="POST">
+                <form action="submit_order.php" method="POST">
                     <div class="table-number">
                         <label for="table-number">Nomor Meja:</label>
                         <select id="table-number" name="table_number" required>
