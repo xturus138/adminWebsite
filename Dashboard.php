@@ -71,6 +71,7 @@
             ?>
 
           <!-- Nav Item - Pages Collapse Menu -->
+            <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
                     aria-expanded="true" aria-controls="collapseKoki">
@@ -85,7 +86,9 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
+            <?php if ($jabatan == 'pelayan' || $jabatan == 'admin') { ?>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePelayan"
@@ -93,16 +96,16 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Pelayan</span>
                 </a>
-                <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
-                        <a class="collapse-item" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
                         <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
+            <?php if ($jabatan == 'kasir' || $jabatan == 'admin') { ?>
             <!-- Nav Item - Kasir Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir"
@@ -118,7 +121,9 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
+            <?php if ($jabatan == 'admin') { ?>
             <!-- Nav Item - Admin Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
@@ -134,12 +139,7 @@
                     </div>
                 </div>
             </li>
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
+            <?php } ?>
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>

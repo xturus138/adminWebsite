@@ -55,10 +55,25 @@
             <div class="sidebar-heading">
                 Menu
             </div>
+            <?php
+            session_start();
+            include('config.php'); // Contains the database connection code
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            // Cek apakah pengguna sudah login
+            if (!isset($_SESSION['login_user'])) {
+                header("location: index.html");
+                exit();
+            }
+
+            // Ambil jabatan pengguna dari session
+            $jabatan = $_SESSION['jabatan'];
+            ?>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+            <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki" aria-expanded="true" aria-controls="collapseKoki">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
+                    aria-expanded="true" aria-controls="collapseKoki">
                     <i class="fas fa-fw fa-utensils"></i>
                     <span>Koki</span>
                 </a>
@@ -70,7 +85,9 @@
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
+            <?php if ($jabatan == 'pelayan' || $jabatan == 'admin') { ?>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePelayan"
@@ -78,34 +95,34 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Pelayan</span>
                 </a>
-                <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
-                        <a class="collapse-item" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
                         <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-                    aria-controls="collapseTwo">
+            <?php if ($jabatan == 'kasir' || $jabatan == 'admin') { ?>
+            <!-- Nav Item - Kasir Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir"
+                    aria-expanded="true" aria-controls="collapseKasir">
                     <i class="fas fa-fw fa-cash-register"></i>
                     <span>Kasir</span>
                 </a>
-                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
-                    data-parent="#accordionSidebar">
+                <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
+                        <a class="collapse-item show" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
                         <a class="collapse-item" href="Lkeuangan-kasir.html">Laporan Keuangan</a>
                     </div>
                 </div>
             </li>
+            <?php } ?>
 
+            <?php if ($jabatan == 'admin') { ?>
             <!-- Nav Item - Admin Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
@@ -121,7 +138,7 @@
                     </div>
                 </div>
             </li>
-
+            <?php } ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
