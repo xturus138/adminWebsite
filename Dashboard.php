@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Dashboard.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Dashboard.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="Dashboard.html">
+                <a class="nav-link" href="Dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -55,6 +55,20 @@
             <div class="sidebar-heading">
                 Menu
             </div>
+
+            <?php
+            session_start();
+            include('config.php'); // Contains the database connection code
+
+            // Cek apakah pengguna sudah login
+            if (!isset($_SESSION['login_user'])) {
+                header("location: index.html");
+                exit();
+            }
+
+            // Ambil jabatan pengguna dari session
+            $jabatan = $_SESSION['jabatan'];
+            ?>
 
           <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">

@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Check database for credentials
-    $sql = "SELECT no_id FROM pegawai WHERE no_id = '$no_id' and password = '$password'";
+    $sql = "SELECT no_id, jabatan FROM pegawai WHERE no_id = '$no_id' and password = '$password'";
     $result = mysqli_query($db, $sql);
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $count = mysqli_num_rows($result);
@@ -15,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If result matched $no_id and $password, table row must be 1 row
     if ($count == 1) {
         $_SESSION['login_user'] = $no_id;
-        header("location: Dashboard.html");
+        $_SESSION['jabatan'] = $row['jabatan']; // Simpan jabatan di session
+        header("location: Dashboard.php");
     } else {
         echo '<script type="text/javascript">';
         echo 'alert("Your Login ID or Password is invalid");';
