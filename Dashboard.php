@@ -101,6 +101,7 @@
                         <h6 class="collapse-header">Menu Pelayan</h6>
                         <a class="collapse-item" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
                         <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
+                        <a class="collapse-item" href="status-pesanan-pelayan.php">Status Pesanan</a>
                     </div>
                 </div>
             </li>
