@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>OReservasi Submitted Successfully!</h1>
+        <h1>Reservasi Submitted Successfully!</h1>
         <p>Thank you for your reservasi.</p>
         <a href="reservasi-pesanan-pelayan.php">Back to Menu</a>
     </div>

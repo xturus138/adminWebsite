@@ -427,23 +427,16 @@
             </head>
             <body>
                 <div class="container">
-                    <h1>Menu Pencatatan Pesanan</h1>
-
+                    <h1>Menu Reservasi</h1>
                     <form action="reservasi-pesanan-insert-pelayan.php" method="POST">
                         <div class="table-number">
                             <label for="table-number">Nomor Meja:</label>
                             <select id="table-number" name="table_number" required>
                                 <option value="" disabled selected>Pilih Nomor Meja</option>
-
                                 <?php
-                                // Connect to the database
                                 include('config.php');
-                                
-                                // Fetch table numbers, capacities, and statuses from the database
                                 $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
                                 $result = mysqli_query($db, $query);
-                                
-                                // Generate options dynamically from the fetched data
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     $no_meja = $row['no_meja'];
                                     $kapasitas = $row['kapasitas'];
@@ -469,16 +462,11 @@
                             <input type="date" id="order-date" name="order_date" required>
                         </div>
 
-                        <button type="submit" class="submit-btn">Catat Pesanan</button>
-
+                        <button type="submit" class="submit-btn">Catat Reservasi</button>
                     </form>
                 </div>
             </body>
-
-
-
-
-               
+    
             <!-- End of Page Content -->
 
             <!-- Footer -->
