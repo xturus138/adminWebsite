@@ -55,7 +55,6 @@
             <div class="sidebar-heading">
                 Menu
             </div>
-
             <?php
             session_start();
             include('config.php'); // Contains the database connection code
@@ -100,8 +99,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
                         <a class="collapse-item" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
-                        <a class="collapse-item active" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
-                        <a class="collapse-item" href="status-pesanan-pelayan.php">Status Pesanan</a>
+                        <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
+                        <a class="collapse-item active" href="status-pesanan-pelayan.php">Status Pesanan</a>
                     </div>
                 </div>
             </li>
@@ -142,7 +141,6 @@
                 </div>
             </li>
             <?php } ?>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -358,185 +356,79 @@
                 </nav>
                 <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            <head>
-            <meta charset="UTF-8">
-            <title>Menu Pencatatan Pesanan</title>
-            <style>
-                    body {
-                        font-family: 'Nunito', sans-serif;
-                        margin: 0;
-                        padding: 0;
-                        background-color: #f8f9fc;
-                    }
-                    .container {
-                        width: 100%;
-                        padding: 20px;
-                        background-color: #fff;
-                        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-                        border-radius: 5px;
-                        margin-top: 30px;
-                    }
-                    h1 {
-                        text-align: center;
-                        color: #4e73df;
-                        font-size: 1.75rem;
-                        margin-bottom: 20px;
-                    }
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin-top: 20px;
-                    }
-                    table, th, td {
-                        border: 1px solid #dee2e6;
-                    }
-                    th, td {
-                        padding: 12px;
-                        text-align: left;
-                    }
-                    th {
-                        background-color: #4e73df;
-                        color: #fff;
-                    }
-                    tr:nth-child(even) {
-                        background-color: #f2f2f2;
-                    }
-                    input[type="number"] {
-                        width: 60px;
-                        padding: 5px;
-                        border: 1px solid #ced4da;
-                        border-radius: 4px;
-                    }
-                    .submit-btn {
-                        display: block;
-                        width: 25%;
-                        padding: 15px;
-                        background-color: #4e73df;
-                        color: white;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        font-size: 18px;
-                        font-weight: bold;
-                        margin: 0 auto; 
-                        text-align: center;
-                    }
-                    .submit-btn:hover {
-                        background-color: #2e59d9;
-                    }
-                    .table-number {
-                        margin-bottom: 20px;
-                    }
-                    .table-number label {
-                        font-weight: bold;
-                    }
-                    .table-number select {
-                        width: 100%;
-                        padding: 10px;
-                        border: 1px solid #d1d3e2;
-                        border-radius: 5px;
-                    }
-                    .order-status {
-                        margin-bottom: 20px;
-                    }
-                    .order-status label {
-                        font-weight: bold;
-                    }
-                    .order-status select {
-                        width: 100%;
-                        padding: 10px;
-                        border: 1px solid #d1d3e2;
-                        border-radius: 5px;
-                    }
-                </style>
-            </head>
-            <body>
-            <div class="container">
-                <h1>Menu Pencatatan Pesanan</h1>
+              <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-                <form action="pengolahan-pesanan-insert-pelayan.php" method="POST">
-                    <div class="table-number">
-                        <label for="table-number">Nomor Meja:</label>
-                        <select id="table-number" name="table_number" required>
-                            <option value="" disabled selected>Pilih Nomor Meja</option>
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Pengolahan Pesanan</h1>
+            </div>
 
-                            <?php
-                            // Connect to the database
-                            include('config.php');
-                            
-                            // Fetch table numbers, capacities, and statuses from the database
-                            $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
-                            $result = mysqli_query($db, $query);
-                            
-                            // Generate options dynamically from the fetched data
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $no_meja = $row['no_meja'];
-                                $kapasitas = $row['kapasitas'];
-                                $status_meja = $row['status_meja'];
-                                echo "<option value=\"$no_meja\">Meja $no_meja - Kapasitas: $kapasitas - Status: $status_meja</option>";
-                            }
-                            ?>
-                        </select>
+            <!-- Tabel Pesanan -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Semua Pesanan</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No Meja</th>
+                                        <th>No ID</th>
+                                        <th>Total</th>
+                                        <th>Tanggal</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include 'config.php'; // Include database connection
+
+                                    // Query to select pesanan with specific statuses
+                                    $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai')";
+                                    $result = mysqli_query($db, $query);
+
+                                    $no = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $no++ . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['no_meja']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['total']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['status_pesanan']) . "</td>";
+
+                                        // Determine the current status and possible next statuses
+                                        echo "<td>
+                                                <div class='dropdown'>
+                                                    <button class='btn btn-secondary dropdown-toggle btn-sm' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                        Pilih Status
+                                                    </button>
+                                                    <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=tunggu'>Tunggu</a>
+                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=masak'>Masak</a>
+                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=selesai'>Selesai</a>
+                                                    </div>
+                                                </div>
+                                            </td>";
+                                        echo "</tr>";
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-                    <div class="order-status">
-                        <label for="order-status">Status Pesanan:</label>
-                        <select id="order-status" name="order_status" required>
-                            <option value="" disabled selected>Pilih Status</option>
-                            <option value="dine in">Dine In</option>
-                            <option value="take away">Take Away</option>
-                        </select>
-                    </div>
-
-                    <div class="menu-section">
-                    <hr>
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Menu</th>
-                                <th>Harga</th>
-                                <th>Stok</th>
-                                <th>Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Fetch menu data from the database
-                            $query = "SELECT no_menu, nama_menu, harga, stok FROM menu WHERE status_menu = 'setuju'";
-                            $result = mysqli_query($db, $query);
-
-                            // Display menu items in the table
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $no_menu = $row['no_menu'];
-                                $nama_menu = $row['nama_menu'];
-                                $harga = $row['harga'];
-                                $stok = $row['stok'];
-
-                                echo "<tr>";
-                                echo "<td>$no_menu</td>";
-                                echo "<td>$nama_menu</td>";
-                                echo "<td>$harga</td>";
-                                echo "<td>$stok</td>";
-                                echo "<td><input type='number' name='jumlah_$no_menu' min='0' max='$stok' placeholder='0'></td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
                 </div>
 
 
-        <button type="submit" class="submit-btn">Catat Pesanan</button>
-    </form>
-</div>
-            </body>
 
-
-
-               
-            <!-- End of Page Content -->
+            </div>
+            </div>
+            </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
