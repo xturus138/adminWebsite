@@ -24,8 +24,8 @@
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -69,7 +69,7 @@
             $jabatan = $_SESSION['jabatan'];
             ?>
 
-          <!-- Nav Item - Pages Collapse Menu -->
+        <!-- Nav Item - Pages Collapse Menu -->
             <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
@@ -115,8 +115,8 @@
                 <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
-                        <a class="collapse-item" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
+                        <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
+                        <a class="collapse-item active" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
                     </div>
                 </div>
             </li>
@@ -147,8 +147,8 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-             <!-- Sidebar Message -->
-             <div class="sidebar-card d-none d-lg-flex">
+            <!-- Sidebar Message -->
+            <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>Resto Unikom</strong> Versi 1.0</p>
                 <a class="btn btn-success btn-sm" href="https://github.com/xturus138/adminWebsite">Laporkan Bug !</a>
@@ -356,94 +356,89 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Pesanan</h1>
-                    <!-- Orders Tab -->
-                    <div id="orders" class="tab-content">
-                        <p class="mb-4">Daftar Pesanan Dari Semua Pelanggan.</p>
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Tabel Pesanan</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" style="width: 5%;">No</th>
-                                                <th class="text-center" style="width: 12%;">Nomor Pesanan</th>
-                                                <th class="text-center" style="width: 20%;">Tanggal</th>
-                                                <th class="text-center" style="width: 18%;">Nama Menu</th>
-                                                <th class="text-center" style="width: 10%;">Jumlah</th>
-                                                <th class="text-center" style="width: 20%;">Total</th>
-                                                <th class="text-center" style="width: 20%;">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="orders-table-body">
-                                            <?php
-                                                include 'config.php'; 
-                                                // Define statuses to include
-                                                $statuses = ["selesai", "belum dibayar", "sudah dibayar"];
+                    <h1 class="h3 mb-4 text-gray-800">Laporan Keuangan</h1>
 
-                                                // SQL query to fetch orders
-                                                $sql = "SELECT o.no_pesanan, o.tanggal, m.nama_menu, ip.jumlah, SUM(m.harga * ip.jumlah) as total, o.status_pesanan
-                                                        FROM pesanan o
-                                                        JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
-                                                        JOIN menu m ON ip.no_menu = m.no_menu
-                                                        WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar')
-                                                        GROUP BY o.no_pesanan, o.tanggal, m.nama_menu, ip.jumlah, o.status_pesanan";
-
-                                                $result = mysqli_query($db, $sql);
-
-                                                if (mysqli_num_rows($result) > 0) {
-                                                    $no = 1; // Initialize row number
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        // Determine button class based on status
-                                                        $status = $row['status_pesanan']; 
-                                                        $btnClass = 'btn-warning'; 
-
-                                                        if ($status == 'selesai') {
-                                                            $btnClass = 'btn-primary';
-                                                        } else if ($status == 'belum dibayar') {
-                                                            $btnClass = 'btn-danger';
-                                                        } else if ($status == 'sudah dibayar') {
-                                                            $btnClass = 'btn-success';
-                                                        }
-
-                                                        echo "<tr>
-                                                            <td class='text-center'>{$no}</td>
-                                                            <td>{$row['no_pesanan']}</td>
-                                                            <td>{$row['tanggal']}</td>
-                                                            <td>{$row['nama_menu']}</td>
-                                                            <td>{$row['jumlah']}</td>
-                                                            <td>{$row['total']}</td>
-                                                            <td>
-                                                                <div class='dropdown'>
-                                                                    <button class='btn $btnClass dropdown-toggle' type='button' id='statusDropdown{$row['no_pesanan']}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                                        {$status}
-                                                                    </button>
-                                                                    <div class='dropdown-menu' aria-labelledby='statusDropdown{$row['no_pesanan']}'>
-                                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='belum dibayar' onclick='updateStatus(this)'>Belum Dibayar</a>
-                                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='sudah dibayar' onclick='updateStatus(this)'>Sudah Dibayar</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>";
-                                                        $no++; 
-                                                    }
-                                                } else {
-                                                    echo "<tr><td colspan='7'>Pesanan tidak ditemukan</td></tr>";
-                                                }
-
-                                                mysqli_close($db);
-                                            ?>
-                                        </tbody>
-                                    </table>
+                    <!-- Date Range Form -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Pilih Periode Waktu</h6>
+                        </div>
+                        <div class="card-body">
+                            <form id="report-form" action="pengolahan-laporan-keuangan-kasir.php" method="get">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="start_date">Tanggal Mulai</label>
+                                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="end_date">Tanggal Akhir</label>
+                                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                                    </div>
+                                    <div class="form-group col-md-4 align-self-end">
+                                        <button type="submit" class="btn btn-primary">Lihat Laporan</button>
+                                    </div>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <?php include 'pengolahan-laporan-keuangan-kasir(data).php'; ?>
+
+                    <!-- Report Results -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Tanggal</th>
+                                            <th class="text-center">Total Penjualan</th>
+                                            <th class="text-center">Jumlah Pesanan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="report-table-body">
+                                    <?php
+                                    if (!empty($tanggal)) {
+                                        for ($i = 0; $i < count($tanggal); $i++) {
+                                            echo "<tr>";
+                                            echo "<td class='text-center'>{$tanggal[$i]}</td>";
+                                            echo "<td class='text-center'>{$total_penjualan[$i]}</td>";
+                                            echo "<td class='text-center'>{$jumlah_pesanan[$i]}</td>";
+                                            echo "</tr>";
+                                        }
+                                    } else {
+                                        echo "<tr>";
+                                        echo "<td colspan='3' class='text-center'>Tidak ada data</td>";
+                                        echo "</tr>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
                             </div>
+                            <canvas id="myChart" width="400" height="200"></canvas>
+                            <script>
+                                var ctx = document.getElementById('myChart').getContext('2d');
+                                var chart = new Chart(ctx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: <?php echo json_encode($tanggal); ?>,
+                                        datasets: [{
+                                            label: 'Total Penjualan',
+                                            backgroundColor: 'rgba(0, 119, 204, 0.3)',
+                                            borderColor: 'rgb(0, 119, 204)',
+                                            data: <?php echo json_encode($total_penjualan); ?>
+                                        }]
+                                    },
+                                    options: {}
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
+            <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
 
@@ -488,6 +483,7 @@
         </div>
     </div>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -498,39 +494,6 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Updated data in database function -->
-    <script>
-    function updateStatus(element) {
-        var orderId = $(element).data('id');
-        var status = $(element).data('status');
-        var button = $('#statusDropdown' + orderId);
-
-        $.ajax({
-            url: 'pengolahan-pesanan-status-kasir.php',
-            type: 'POST',
-            data: {
-                no_pesanan: orderId,
-                status: status
-            },
-            success: function(response) {
-                // Update button text and class based on the new status
-                button.text(status);
-                button.removeClass('btn-warning btn-success btn-danger btn-primary');
-                if (status === 'selesai') {
-                    button.addClass('btn-primary');
-                } else if (status === 'belum dibayar') {
-                    button.addClass('btn-danger');
-                } else if (status === 'sudah dibayar') {
-                    button.addClass('btn-success');
-                }
-                location.reload()
-            },
-            error: function(xhr, status, error) {
-                alert('Error updating status');
-            }
-        });
-    }
-</script>
 </body>
 
 </html>
