@@ -364,14 +364,14 @@
                                             <?php
                                                 include 'config.php'; 
                                                 // Define statuses to include
-                                                $statuses = ["Selesai", "Belum Dibayar", "Sudah Dibayar"];
+                                                $statuses = ["selesai", "belum dibayar", "sudah dibayar"];
 
                                                 // SQL query to fetch orders
                                                 $sql = "SELECT o.no_pesanan, o.tanggal, m.nama_menu, ip.jumlah, SUM(m.harga * ip.jumlah) as total, o.status_pesanan
                                                         FROM pesanan o
                                                         JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
                                                         JOIN menu m ON ip.no_menu = m.no_menu
-                                                        WHERE o.status_pesanan IN ('Selesai', 'Belum Dibayar', 'Sudah Dibayar')
+                                                        WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar')
                                                         GROUP BY o.no_pesanan, o.tanggal, m.nama_menu, ip.jumlah, o.status_pesanan";
 
                                                 $result = mysqli_query($db, $sql);
@@ -383,11 +383,11 @@
                                                         $status = $row['status_pesanan']; 
                                                         $btnClass = 'btn-warning'; // Default button class
 
-                                                        if ($status == 'Selesai') {
+                                                        if ($status == 'selesai') {
                                                             $btnClass = 'btn-primary';
-                                                        } else if ($status == 'Belum Dibayar') {
+                                                        } else if ($status == 'belum dibayar') {
                                                             $btnClass = 'btn-danger';
-                                                        } else if ($status == 'Sudah Dibayar') {
+                                                        } else if ($status == 'sudah dibayar') {
                                                             $btnClass = 'btn-success';
                                                         }
 
@@ -404,8 +404,8 @@
                                                                         {$status}
                                                                     </button>
                                                                     <div class='dropdown-menu' aria-labelledby='statusDropdown{$row['no_pesanan']}'>
-                                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='Belum Dibayar' onclick='updateStatus(this)'>Belum Dibayar</a>
-                                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='Sudah Dibayar' onclick='updateStatus(this)'>Sudah Dibayar</a>
+                                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='belum dibayar' onclick='updateStatus(this)'>Belum Dibayar</a>
+                                                                        <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='sudah dibayar' onclick='updateStatus(this)'>Sudah Dibayar</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -498,11 +498,11 @@
                 // Update button text and class based on the new status
                 button.text(status);
                 button.removeClass('btn-warning btn-success btn-danger btn-primary');
-                if (status === 'Selesai') {
+                if (status === 'selesai') {
                     button.addClass('btn-primary');
-                } else if (status === 'Belum Dibayar') {
+                } else if (status === 'belum dibayar') {
                     button.addClass('btn-danger');
-                } else if (status === 'Sudah Dibayar') {
+                } else if (status === 'sudah dibayar') {
                     button.addClass('btn-success');
                 }
             },
