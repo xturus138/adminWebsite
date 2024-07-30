@@ -99,6 +99,7 @@
                 <div id="collapsePelayan" class="collapse show" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
+                        <a class="collapse-item" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
                         <a class="collapse-item show" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
                     </div>
                 </div>
