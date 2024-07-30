@@ -383,25 +383,6 @@
                         font-size: 1.75rem;
                         margin-bottom: 20px;
                     }
-                    table {
-                        width: 100%;
-                        border-collapse: collapse;
-                        margin-top: 20px;
-                    }
-                    table, th, td {
-                        border: 1px solid #dee2e6;
-                    }
-                    th, td {
-                        padding: 12px;
-                        text-align: left;
-                    }
-                    th {
-                        background-color: #4e73df;
-                        color: #fff;
-                    }
-                    tr:nth-child(even) {
-                        background-color: #f2f2f2;
-                    }
                     input[type="number"] {
                         width: 60px;
                         padding: 5px;
@@ -480,6 +461,7 @@
                         </select>
                     </div>
 
+                <!-- Dropdown Status -->
                     <div class="order-status">
                         <label for="order-status">Status Pesanan:</label>
                         <select id="order-status" name="order_status" required>
@@ -489,48 +471,55 @@
                         </select>
                     </div>
 
-                    <div class="menu-section">
-                    <hr>
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Menu</th>
-                                <th>Harga</th>
-                                <th>Stok</th>
-                                <th>Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            // Fetch menu data from the database
-                            $query = "SELECT no_menu, nama_menu, harga, stok FROM menu WHERE status_menu = 'setuju'";
-                            $result = mysqli_query($db, $query);
+                <!-- Tabel Menu -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Semua Menu</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Menu</th>
+                                                    <th>Harga</th>
+                                                    <th>Stok</th>
+                                                    <th>Jumlah</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                // Fetch menu data from the database
+                                                $query = "SELECT no_menu, nama_menu, harga, stok FROM menu WHERE status_menu = 'setuju'";
+                                                $result = mysqli_query($db, $query);
 
-                            // Display menu items in the table
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $no_menu = $row['no_menu'];
-                                $nama_menu = $row['nama_menu'];
-                                $harga = $row['harga'];
-                                $stok = $row['stok'];
+                                                // Display menu items in the table
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $no_menu = $row['no_menu'];
+                                                    $nama_menu = $row['nama_menu'];
+                                                    $harga = $row['harga'];
+                                                    $stok = $row['stok'];
 
-                                echo "<tr>";
-                                echo "<td>$no_menu</td>";
-                                echo "<td>$nama_menu</td>";
-                                echo "<td>$harga</td>";
-                                echo "<td>$stok</td>";
-                                echo "<td><input type='number' name='jumlah_$no_menu' min='0' max='$stok' placeholder='0'></td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-
-
-        <button type="submit" class="submit-btn">Catat Pesanan</button>
-    </form>
-</div>
+                                                    echo "<tr>";
+                                                    echo "<td>$no_menu</td>";
+                                                    echo "<td>$nama_menu</td>";
+                                                    echo "<td>$harga</td>";
+                                                    echo "<td>$stok</td>";
+                                                    echo "<td><input type='number' name='jumlah_$no_menu' min='0' max='$stok' placeholder='0'></td>";
+                                                    echo "</tr>";
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <button type="submit" class="submit-btn">Catat Pesanan</button>
+                </form>
+            </div>
             </body>
 
 

@@ -381,7 +381,6 @@
                                         <th>Total</th>
                                         <th>Tanggal</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -401,21 +400,6 @@
                                         echo "<td>" . htmlspecialchars($row['total']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
                                         echo "<td>" . htmlspecialchars($row['status_pesanan']) . "</td>";
-
-                                        // Determine the current status and possible next statuses
-                                        echo "<td>
-                                                <div class='dropdown'>
-                                                    <button class='btn btn-secondary dropdown-toggle btn-sm' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                        Pilih Status
-                                                    </button>
-                                                    <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=tunggu'>Tunggu</a>
-                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=masak'>Masak</a>
-                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=selesai'>Selesai</a>
-                                                    </div>
-                                                </div>
-                                            </td>";
-                                        echo "</tr>";
                                     }
                                     ?>
                                 </tbody>
@@ -423,12 +407,9 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
-            </div>
-            </div>
+        </div>
+    </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
