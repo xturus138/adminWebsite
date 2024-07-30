@@ -115,7 +115,7 @@
                 <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item show" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
+                        <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
                         <a class="collapse-item" href="Lkeuangan-kasir.html">Laporan Keuangan</a>
                     </div>
                 </div>
@@ -399,7 +399,7 @@
                                                     while ($row = mysqli_fetch_assoc($result)) {
                                                         // Determine button class based on status
                                                         $status = $row['status_pesanan']; 
-                                                        $btnClass = 'btn-warning'; // Default button class
+                                                        $btnClass = 'btn-warning'; 
 
                                                         if ($status == 'selesai') {
                                                             $btnClass = 'btn-primary';
