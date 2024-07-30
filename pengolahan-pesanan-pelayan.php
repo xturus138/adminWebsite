@@ -82,7 +82,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
-                        <a class="collapse-item active" href="pesanan-pelayan.php">Pemesanan</a>
+                        <a class="collapse-item" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
+                        <a class="collapse-item active" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
                     </div>
                 </div>
             </li>
@@ -431,7 +432,7 @@
             <div class="container">
                 <h1>Menu Pencatatan Pesanan</h1>
 
-                <form action="submit_order.php" method="POST">
+                <form action="pengolahan-pesanan-insert-pelayan.php" method="POST">
                     <div class="table-number">
                         <label for="table-number">Nomor Meja:</label>
                         <select id="table-number" name="table_number" required>
