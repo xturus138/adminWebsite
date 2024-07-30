@@ -1,14 +1,21 @@
 <?php
 include('config.php');
-
-// Start a session to store error messages
 session_start();
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $table_number = strtolower($_POST['table_number']);
     $order_status = strtolower($_POST['order_status']);
-    $employee_id = '12345678'; // Assume a static employee ID for this example
+    
+    // Get the employee id from the session
+    if (isset($_SESSION['login_user'])) {
+        $employee_id = $_SESSION['login_user'];
+    } else {
+        // Handle the error if no_id is not set
+        $_SESSION['error'] = "Employee ID not found. Please log in.";
+        header('Location: login_form.php'); // Redirect to login page
+        exit();
+    }
 
     // Calculate the total amount
     $total = 0;
