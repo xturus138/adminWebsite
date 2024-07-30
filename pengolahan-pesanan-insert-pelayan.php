@@ -17,21 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Check the status of the table
-    $checkTableStatusQuery = "SELECT status_meja FROM meja WHERE no_meja = ?";
-    $checkTableStmt = mysqli_prepare($db, $checkTableStatusQuery);
-    mysqli_stmt_bind_param($checkTableStmt, 's', $table_number);
-    mysqli_stmt_execute($checkTableStmt);
-    mysqli_stmt_bind_result($checkTableStmt, $status_meja);
-    mysqli_stmt_fetch($checkTableStmt);
-    mysqli_stmt_close($checkTableStmt);
-
-    if ($status_meja !== '') {
-        $_SESSION['error'] = "Table is already in use.";
-        header('Location: order_success.php');
-        exit();
-    }
-
     // Calculate the total amount
     $total = 0;
 
@@ -42,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_stmt_execute($stmt)) {
         $order_id = mysqli_insert_id($db); // Get the last inserted order ID
+
+
 
         // Insert each menu item into isi_pesanan
         foreach ($_POST as $key => $value) {
