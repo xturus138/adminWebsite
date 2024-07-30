@@ -43,7 +43,7 @@
     <div class="container">
         <h1>Order Submitted Successfully!</h1>
         <p>Thank you for your order.</p>
-        <a href="pesanan-pelayan.php">Back to Menu</a>
+        <a href="pengolahan-pesanan-pelayan.php">Back to Menu</a>
     </div>
 </body>
 </html>
