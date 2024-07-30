@@ -505,6 +505,7 @@
                 } else if (status === 'sudah dibayar') {
                     button.addClass('btn-success');
                 }
+                location.reload()
             },
             error: function(xhr, status, error) {
                 alert('Error updating status');
