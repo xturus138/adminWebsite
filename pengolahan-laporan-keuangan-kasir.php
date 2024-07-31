@@ -69,23 +69,23 @@
             $jabatan = $_SESSION['jabatan'];
             ?>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-            <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
-                    aria-expanded="true" aria-controls="collapseKoki">
-                    <i class="fas fa-fw fa-utensils"></i>
-                    <span>Koki</span>
-                </a>
-                <div id="collapseKoki" class="collapse" aria-labelledby="headingKoki" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Menu Koki</h6>
-                        <a class="collapse-item" href="pengolahan-menu-koki.php">Pengolahan Menu</a>
-                        <a class="collapse-item" href="pengolahan-pesanan-koki.php">Pengelohan Pesanan</a>
+            <!-- Nav Item - Pages Collapse Menu -->
+                <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
+                        aria-expanded="true" aria-controls="collapseKoki">
+                        <i class="fas fa-fw fa-utensils"></i>
+                        <span>Koki</span>
+                    </a>
+                    <div id="collapseKoki" class="collapse" aria-labelledby="headingKoki" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Menu Koki</h6>
+                            <a class="collapse-item" href="pengolahan-menu-koki.php">Pengolahan Menu</a>
+                            <a class="collapse-item" href="pengolahan-pesanan-koki.php">Pengelohan Pesanan</a>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <?php } ?>
+                </li>
+                <?php } ?>
 
             <?php if ($jabatan == 'pelayan' || $jabatan == 'admin') { ?>
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -419,22 +419,22 @@
                                 </table>
                             </div>
                             <canvas id="myChart" width="400" height="200"></canvas>
-                            <script>
-                                var ctx = document.getElementById('myChart').getContext('2d');
-                                var chart = new Chart(ctx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: <?php echo json_encode($tanggal); ?>,
-                                        datasets: [{
-                                            label: 'Total Penjualan',
-                                            backgroundColor: 'rgba(0, 119, 204, 0.3)',
-                                            borderColor: 'rgb(0, 119, 204)',
-                                            data: <?php echo json_encode($total_penjualan); ?>
-                                        }]
-                                    },
-                                    options: {}
-                                });
-                            </script>
+                                <script>
+                                    var ctx = document.getElementById('myChart').getContext('2d');
+                                    var chart = new Chart(ctx, {
+                                        type: 'line',
+                                        data: {
+                                            labels: <?php echo json_encode($tanggal); ?>,
+                                            datasets: [{
+                                                label: 'Total Penjualan',
+                                                backgroundColor: 'rgba(0, 119, 204, 0.3)',
+                                                borderColor: 'rgb(0, 119, 204)',
+                                                data: <?php echo json_encode($total_penjualan); ?>
+                                            }]
+                                        },
+                                        options: {}
+                                    });
+                                </script>
                         </div>
                     </div>
                 </div>

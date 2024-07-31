@@ -1,17 +1,25 @@
 <?php
-include 'config.php'; // Ensure this is the correct path to your config.php file
+include 'config.php';
 
 if (isset($_POST['no_pesanan']) && isset($_POST['status'])) {
     $no_pesanan = $_POST['no_pesanan'];
     $status = $_POST['status'];
 
-    // Correct the column name in the update query
+    // Update the status of the order
     $sql = "UPDATE pesanan SET status_pesanan='$status' WHERE no_pesanan='$no_pesanan'";
 
     if (mysqli_query($db, $sql)) {
-        echo "Record updated successfully";
+        // If the status is 'sudah dibayar', update the status_meja to 'kosong'
+        if ($status == 'sudah dibayar') {
+            $sql_update_meja = "UPDATE meja m
+                                JOIN pesanan p ON m.no_meja = p.no_meja
+                                SET m.status_meja = 'kosong'
+                                WHERE p.no_pesanan = '$no_pesanan'";
+            mysqli_query($db, $sql_update_meja);
+        }
+        echo "Berhasil diperbarui";
     } else {
-        echo "Error updating record: " . mysqli_error($db);
+        echo "Gagal diperbarui: " . mysqli_error($db);
     }
 
     mysqli_close($db);
