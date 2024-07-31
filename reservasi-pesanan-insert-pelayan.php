@@ -1,43 +1,69 @@
 <?php
 session_start();
-include('config.php');
+include('config.php'); // Menggunakan koneksi database
 
+// Cek apakah form sudah di-submit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $table_number = $_POST['table_number'];
-    $order_status = $_POST['order_status'];
+    // Ambil data dari form
+    $no_meja = $_POST['table_number'];
     $order_date = $_POST['order_date'];
-    $no_id = $_SESSION['login_user'];  // Get the logged-in user ID
+    $order_status = $_POST['order_status'];
+    
+    // Ambil no_id dari session
+    if(isset($_SESSION['login_user'])) {
+        $no_id = $_SESSION['login_user'];
+    } else {
+        // Jika tidak ada sesi login, redirect ke halaman login
+        header("Location: login.php");
+        exit();
+    }
+    
+    // Set status_pesanan ke "tunggu"
+    $status_pesanan = "tunggu";
+    
+    // Mulai transaksi
+    mysqli_begin_transaction($db);
 
-    // Update table status regardless of the order status
-    $update_table_status_query = "UPDATE meja SET status_meja='tunggu' WHERE no_meja='$table_number'";
-    mysqli_query($db, $update_table_status_query);
-
-    if ($order_status != 'kosong') {
-        // Calculate total from isi_pesanan
-        $total_query = "SELECT SUM(jumlah) AS total FROM isi_pesanan WHERE no_pesanan IN (SELECT no_pesanan FROM pesanan WHERE no_meja = '$table_number')";
-        $total_result = mysqli_query($db, $total_query);
-        $total_row = mysqli_fetch_assoc($total_result);
-        $total = $total_row['total'] ? $total_row['total'] : 0;
-
-        // Check if there's an existing order for the table with a non-kosong status
-        $order_query = "SELECT no_pesanan FROM pesanan WHERE no_meja='$table_number' AND status_pesanan != 'kosong'";
-        $order_result = mysqli_query($db, $order_query);
-        $order_row = mysqli_fetch_assoc($order_result);
-
-        if ($order_row) {
-            // Update existing order
-            $no_pesanan = $order_row['no_pesanan'];
-            $update_order_query = "UPDATE pesanan SET no_id='$no_id', total='$total', tanggal='$order_date', status_pesanan='$order_status' WHERE no_pesanan='$no_pesanan'";
-            mysqli_query($db, $update_order_query);
-        } else {
-            // Insert new order
-            $insert_order_query = "INSERT INTO pesanan (no_meja, no_id, total, tanggal, status_pesanan) VALUES ('$table_number', '$no_id', '$total', '$order_date', '$order_status')";
-            mysqli_query($db, $insert_order_query);
+    try {
+        // Insert data ke tabel pesanan
+        $query = "INSERT INTO pesanan (no_meja, no_id, tanggal, status_pesanan) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($db, $query);
+        mysqli_stmt_bind_param($stmt, "iiss", $no_meja, $no_id, $order_date, $status_pesanan);
+        
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception('Gagal menyimpan data pesanan.');
         }
+
+        // Update status meja
+        $updateQuery = "UPDATE meja SET status_meja = ? WHERE no_meja = ?";
+        $updateStmt = mysqli_prepare($db, $updateQuery);
+        mysqli_stmt_bind_param($updateStmt, "si", $order_status, $no_meja);
+        
+        if (!mysqli_stmt_execute($updateStmt)) {
+            throw new Exception('Gagal mengupdate status meja.');
+        }
+
+        // Commit transaksi
+        mysqli_commit($db);
+
+        // Redirect ke reservasi_success.php
+        header("Location: reservasi_success.php");
+        exit();
+    } catch (Exception $e) {
+        // Rollback transaksi jika ada kesalahan
+        mysqli_rollback($db);
+        
+        // Redirect ke reservasi_error.php dengan pesan kesalahan
+        $_SESSION['error_message'] = $e->getMessage();
+        header("Location: reservasi_error.php");
+        exit();
     }
 
-    // Redirect to reservation success page
-    header("Location: reservasi_success.php");
-    exit();
+    // Tutup statement
+    mysqli_stmt_close($stmt);
+    mysqli_stmt_close($updateStmt);
 }
+
+// Tutup koneksi
+mysqli_close($db);
 ?>
