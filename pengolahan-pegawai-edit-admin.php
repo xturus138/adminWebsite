@@ -77,6 +77,10 @@ mysqli_close($db);
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
                 </form>
+                <form action="pengolahan-pegawai-delete-admin.php" method="POST" style="margin-top: 20px;">
+                    <input type="hidden" name="id" value="<?php echo $pegawai['no_id']; ?>">
+                    <button type="submit" class="btn btn-danger btn-block">Hapus Pegawai</button>
+                </form>
                 <a href="pengolahan-pegawai-admin.php" class="btn btn-secondary btn-block btn-back">Kembali</a>
             </div>
         </div>
