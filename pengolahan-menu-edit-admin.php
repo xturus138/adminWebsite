@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     if ($data) {
         $nama_menu = $data['nama_menu'];
         $harga = $data['harga'];
+        $status_menu = $data['status_menu'];
     } else {
         echo "<div class='alert alert-danger'>Menu not found!</div>";
         exit;
@@ -20,9 +21,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
     $id = $_POST['id'];
     $nama_menu = $_POST['nama_menu'];
     $harga = $_POST['harga'];
+    $status_menu = $_POST['status_menu'];
 
     // Update menu record
-    $query = "UPDATE menu SET nama_menu = '$nama_menu', harga = '$harga' WHERE no_menu = '$id'";
+    $query = "UPDATE menu SET nama_menu = '$nama_menu', harga = '$harga', status_menu = '$status_menu' WHERE no_menu = '$id'";
     if (mysqli_query($db, $query)) {
         echo "<div class='alert alert-success'>Menu updated successfully!</div>";
     } else {
@@ -59,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                 <h5 class="card-title">Edit Menu</h5>
             </div>
             <div class="card-body">
-                <form action="edit-menu.php" method="POST">
+                <form action="pengolahan-menu-edit-admin.php" method="POST">
                     <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
                     <div class="form-group">
                         <label for="nama_menu">Nama Menu</label>
@@ -69,8 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                         <label for="harga">Harga</label>
                         <input type="number" class="form-control" id="harga" name="harga" value="<?php echo htmlspecialchars($harga); ?>" required>
                     </div>
+                    <div class="form-group">
+                        <label for="status_menu">Status Menu</label>
+                        <select class="form-control" id="status_menu" name="status_menu" required>
+                            <option value="setuju" <?php echo $status_menu == 'setuju' ? 'selected' : ''; ?>>Setuju</option>
+                            <option value="tunda" <?php echo $status_menu == 'tunda' ? 'selected' : ''; ?>>Tunda</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Update Menu</button>
-                    <a href="pengolahan-menu-admin.php" class="btn btn-secondary">Kembali</a>
+                    <a href="pengolahan-menu-admin.php" class="btn btn-secondary">Back</a>
                 </form>
             </div>
         </div>

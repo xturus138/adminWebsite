@@ -19,7 +19,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     echo "<td>" . $row['no_telp'] . "</td>";
     echo "<td>" . $row['jabatan'] . "</td>";
     echo "<td>" . $row['password'] . "</td>";
-    echo '<td><a href="pengolahan-pegawai-edit-admin.php?id=' . $row['no_id'] . '" class="btn btn-primary btn-sm">Edit</a></td>';
+    echo '<td><a href="pengolahan-pegawai-edit-admin.php?id=' . $row['no_id'] . '" class="btn btn-warning btn-sm">Edit</a></td>';
     echo "</tr>";
 }
 
