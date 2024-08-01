@@ -136,10 +136,10 @@
                 <div id="collapseAdmin" class="collapse" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Admin:</h6>
-                        <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
-                        <a class="collapse-item" href="pengolahan-meja-admin.php">Cards</a>
-                        <a class="collapse-item" href="pengolahan-menu-admin.php">Cards</a>
-                        <a class="collapse-item" href="pengolahan-laporan-admin.php">Cards</a>
+                            <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
+                            <a class="collapse-item" href="pengolahan-meja-admin.php">Pengolahan Meja</a>
+                            <a class="collapse-item" href="pengolahan-menu-admin.php">Persetujuan Menu</a>
+                            <a class="collapse-item" href="pengolahan-laporan-admin.php">Laporan Keuangan</a>
                     </div>
                 </div>
             </li>

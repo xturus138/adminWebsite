@@ -130,9 +130,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Admin:</h6>
                         <a class="collapse-item active" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
-                        <a class="collapse-item" href="pengolahan-meja-admin.php">Cards</a>
-                        <a class="collapse-item" href="pengolahan-menu-admin.php">Cards</a>
-                        <a class="collapse-item" href="pengolahan-laporan-admin.php">Cards</a>
+                        <a class="collapse-item" href="pengolahan-meja-admin.php">Pengolahan Meja</a>
+                        <a class="collapse-item" href="pengolahan-menu-admin.php">Persetujuan Menu</a>
+                        <a class="collapse-item" href="pengolahan-laporan-admin.php">Laporan Keuangan</a>
                     </div>
                 </div>
             </li>
@@ -355,19 +355,86 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Pengolahan Menu</h1>
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Pengolahan Pegawai</h1>
+            </div>
+
+            <!-- Tabel Pengolahan Pegawai -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Daftar Pegawai</h6>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No ID</th>
+                                        <th>Nama</th>
+                                        <th>No. Telepon</th>
+                                        <th>Jabatan</th>
+                                        <th>Password</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include 'pengolahan-pegawai-fetch-admin.php'; ?>
+                                </tbody>
+
+                            </table>
+                        </div>
                     </div>
-
-                   
-
-
                 </div>
-                <!-- /.container-fluid -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Form Tambah Pegawai -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Tambah Pegawai Baru</h6>
+                        </div>
+                        <div class="card-body">
+                            <form action="pengolahan-pegawai-tambah-admin.php" method="POST">
+                                <div class="form-group">
+                                    <label for="nama">Nama</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="no_telp">No. Telepon</label>
+                                    <input type="text" class="form-control" id="no_telp" name="no_telp" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jabatan">Jabatan</label>
+                                    <select class="form-control" id="jabatan" name="jabatan" required>
+                                        <option value="koki">Koki</option>
+                                        <option value="pelayan">Pelayan</option>
+                                        <option value="kasir">Kasir</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Tambah Pegawai</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+
 
             </div>
             <!-- End of Main Content -->
