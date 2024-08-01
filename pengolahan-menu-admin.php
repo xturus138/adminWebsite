@@ -371,6 +371,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Daftar Menu</h6>
                             </div>
                             <div class="card-body">
+                            <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
@@ -385,6 +386,7 @@
                                         <?php include 'pengolahan-menu-fetch-admin.php'; ?>
                                     </tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>

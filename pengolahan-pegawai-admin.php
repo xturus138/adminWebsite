@@ -371,27 +371,29 @@
                             <h6 class="m-0 font-weight-bold text-primary">Daftar Pegawai</h6>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No ID</th>
-                                        <th>Nama</th>
-                                        <th>No. Telepon</th>
-                                        <th>Jabatan</th>
-                                        <th>Password</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php include 'pengolahan-pegawai-fetch-admin.php'; ?>
-                                </tbody>
-
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No ID</th>
+                                            <th>Nama</th>
+                                            <th>No. Telepon</th>
+                                            <th>Jabatan</th>
+                                            <th>Password</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php include 'pengolahan-pegawai-fetch-admin.php'; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /.row -->
+
 
             <!-- Form Tambah Pegawai -->
             <div class="row">

@@ -361,8 +361,6 @@
                 <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <head>
-            <meta charset="UTF-8">
             <title>Menu Pencatatan Pesanan</title>
             <style>
                     body {
@@ -481,6 +479,7 @@
                                         <h6 class="m-0 font-weight-bold text-primary">Semua Menu</h6>
                                     </div>
                                     <div class="card-body">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered">
                                             <thead>
                                                 <tr>
@@ -516,10 +515,11 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    <button type="submit" class="submit-btn">Catat Pesanan</button>
+                        <button type="submit" class="btn btn-primary btn-block">Catat Pesanan</button>
                 </form>
             </div>
             </body>

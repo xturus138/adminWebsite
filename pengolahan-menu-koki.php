@@ -407,6 +407,7 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Menu yang Disetujui</h6>
                                 </div>
                                 <div class="card-body">
+                                <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -434,6 +435,7 @@
                                             ?>
                                         </tbody>
                                     </table>
+                                </div>
                                 </div>
                             </div>
                         </div>

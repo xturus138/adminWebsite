@@ -359,10 +359,6 @@
 
                 </nav>
                 <!-- End of Topbar -->
-
-            <!-- Begin Page Content -->
-            <head>
-            <meta charset="UTF-8">
             <title>Menu Pencatatan Pesanan</title>
             <style>
                     body {
@@ -460,12 +456,15 @@
                             </select>
                         </div>
 
-                        <div class="order-date">
-                            <label for="order-date">Tanggal Reservasi:</label>
-                            <input type="date" id="order-date" name="order_date" required>
+                        <div class="order-date form-group row">
+                            <label for="order-date" class="col-sm-3 col-form-label">Tanggal Reservasi:</label>
+                            <div class="col-sm-9">
+                                <input type="date" id="order-date" name="order_date" class="form-control" required>
+                            </div>
                         </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-block">Catat Reservasi</button>
 
-                        <button type="submit" class="submit-btn">Catat Reservasi</button>
                     </form>
                 </div>
             </body>

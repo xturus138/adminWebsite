@@ -371,6 +371,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Daftar Meja</h6>
                         </div>
                         <div class="card-body">
+                        <div class="table-responsive">
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -384,6 +385,7 @@
                                     <?php include 'pengolahan-meja-fetch-admin.php'; ?>
                                 </tbody>
                             </table>
+                        </div>
                         </div>
                     </div>
                 </div>
