@@ -117,9 +117,11 @@
                 </a>
                 <div id="collapseKasir" class="collapse" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
-                        <a class="collapse-item" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
+                        <h6 class="collapse-header">Menu Admin:</h6>
+                        <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
+                        <a class="collapse-item" href="pengolahan-meja-admin.php">Cards</a>
+                        <a class="collapse-item" href="pengolahan-menu-admin.php">Cards</a>
+                        <a class="collapse-item" href="pengolahan-laporan-admin.php">Cards</a>
                     </div>
                 </div>
             </li>

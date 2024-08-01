@@ -27,10 +27,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
+
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Dashboard.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
@@ -38,24 +37,20 @@
                 <div class="sidebar-brand-text mx-3">Resto Unikom</div>
             </a>
 
-            <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="Dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
                 Menu
             </div>
-
             <?php
             session_start();
             include('config.php'); // Contains the database connection code
@@ -96,12 +91,10 @@
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>Pelayan</span>
                 </a>
-                <div id="collapsePelayan" class="collapse show" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
+                <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Pelayan</h6>
-                        <a class="collapse-item active" href="reservasi-pesanan-pelayan.php">Reservasi Pesanan</a>
                         <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
-                        <a class="collapse-item" href="status-pesanan-pelayan.php">Status Pesanan</a>
                     </div>
                 </div>
             </li>
@@ -133,10 +126,10 @@
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Admin</span>
                 </a>
-                <div id="collapseAdmin" class="collapse" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
+                <div id="collapseAdmin" class="collapse show" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Menu Admin:</h6>
-                        <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
+                        <a class="collapse-item active" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
                         <a class="collapse-item" href="pengolahan-meja-admin.php">Cards</a>
                         <a class="collapse-item" href="pengolahan-menu-admin.php">Cards</a>
                         <a class="collapse-item" href="pengolahan-laporan-admin.php">Cards</a>
@@ -144,6 +137,9 @@
                 </div>
             </li>
             <?php } ?>
+
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -176,7 +172,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -360,119 +355,32 @@
                 </nav>
                 <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            <head>
-            <meta charset="UTF-8">
-            <title>Menu Pencatatan Pesanan</title>
-            <style>
-                    body {
-                        font-family: 'Nunito', sans-serif;
-                        margin: 0;
-                        padding: 0;
-                        background-color: #f8f9fc;
-                    }
-                    .container {
-                        width: 100%;
-                        padding: 20px;
-                        background-color: #fff;
-                        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-                        border-radius: 5px;
-                        margin-top: 30px;
-                    }
-                    h1 {
-                        text-align: center;
-                        color: #4e73df;
-                        font-size: 1.75rem;
-                        margin-bottom: 20px;
-                    }
-                    .submit-btn {
-                        display: block;
-                        width: 25%;
-                        padding: 15px;
-                        background-color: #4e73df;
-                        color: white;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        font-size: 18px;
-                        font-weight: bold;
-                        margin: 0 auto; 
-                        text-align: center;
-                    }
-                    .submit-btn:hover {
-                        background-color: #2e59d9;
-                    }
-                    .table-number {
-                        margin-bottom: 20px;
-                    }
-                    .table-number label {
-                        font-weight: bold;
-                    }
-                    .table-number select {
-                        width: 100%;
-                        padding: 10px;
-                        border: 1px solid #d1d3e2;
-                        border-radius: 5px;
-                    }
-                    .order-status {
-                        margin-bottom: 20px;
-                    }
-                    .order-status label {
-                        font-weight: bold;
-                    }
-                    .order-status select {
-                        width: 100%;
-                        padding: 10px;
-                        border: 1px solid #d1d3e2;
-                        border-radius: 5px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>Menu Reservasi</h1>
-                    <form action="reservasi-pesanan-insert-pelayan.php" method="POST">
-                        <div class="table-number">
-                            <label for="table-number">Nomor Meja:</label>
-                            <select id="table-number" name="table_number" required>
-                                <option value="" disabled selected>Pilih Nomor Meja</option>
-                                <?php
-                                include('config.php');
-                                $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
-                                $result = mysqli_query($db, $query);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    $no_meja = $row['no_meja'];
-                                    $kapasitas = $row['kapasitas'];
-                                    $status_meja = $row['status_meja'];
-                                    echo "<option value=\"$no_meja\">Meja $no_meja - Kapasitas: $kapasitas - Status: $status_meja</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                        <div class="order-status">
-                            <label for="order-status">Status Pesanan:</label>
-                            <select id="order-status" name="order_status" required>
-                                <option value="" disabled selected>Pilih Status</option>
-                                <option value="kosong">Kosong</option>
-                                <option value="dine in">Dine In</option>
-                                <option value="take away">Take Away</option>
-                            </select>
-                        </div>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Pengolahan Menu</h1>
+                    </div>
 
-                        <div class="order-date">
-                            <label for="order-date">Tanggal Reservasi:</label>
-                            <input type="date" id="order-date" name="order_date" required>
-                        </div>
+                   
 
-                        <button type="submit" class="submit-btn">Catat Reservasi</button>
-                    </form>
+
                 </div>
-            </body>
-    
-            <!-- End of Page Content -->
+                <!-- /.container-fluid -->
 
-        
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Resto Unikom 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
