@@ -73,7 +73,7 @@ mysqli_close($db);
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" name="password" value="<?php echo htmlspecialchars($pegawai['password']); ?>" required>
+                        <input type="text" class="form-control" name="password" value="<?php echo htmlspecialchars($pegawai['password']); ?>" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
                 </form>
