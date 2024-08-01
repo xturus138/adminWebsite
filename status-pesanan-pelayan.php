@@ -70,7 +70,7 @@
             ?>
 
           <!-- Nav Item - Pages Collapse Menu -->
-            <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
+            <?php if ($jabatan == 'koki') { ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
                     aria-expanded="true" aria-controls="collapseKoki">
@@ -87,7 +87,7 @@
             </li>
             <?php } ?>
 
-            <?php if ($jabatan == 'pelayan' || $jabatan == 'admin') { ?>
+            <?php if ($jabatan == 'pelayan') { ?>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePelayan"
@@ -106,7 +106,7 @@
             </li>
             <?php } ?>
 
-            <?php if ($jabatan == 'kasir' || $jabatan == 'admin') { ?>
+            <?php if ($jabatan == 'kasir') { ?>
             <!-- Nav Item - Kasir Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir"

@@ -68,7 +68,7 @@
             ?>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <?php if ($jabatan == 'koki' || $jabatan == 'admin') { ?>
+            <?php if ($jabatan == 'koki') { ?>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki" aria-expanded="true" aria-controls="collapseKoki">
                         <i class="fas fa-fw fa-utensils"></i>
@@ -84,7 +84,7 @@
                 </li>
             <?php } ?>
 
-            <?php if ($jabatan == 'pelayan' || $jabatan == 'admin') { ?>
+            <?php if ($jabatan == 'pelayan') { ?>
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePelayan" aria-expanded="true" aria-controls="collapsePelayan">
@@ -100,7 +100,7 @@
                 </li>
             <?php } ?>
 
-            <?php if ($jabatan == 'kasir' || $jabatan == 'admin') { ?>
+            <?php if ($jabatan == 'kasir') { ?>
                 <!-- Nav Item - Kasir Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir" aria-expanded="true" aria-controls="collapseKasir">
@@ -128,9 +128,9 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Menu Admin:</h6>
                             <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
-                            <a class="collapse-item" href="pengolahan-meja-admin.php">Cards</a>
-                            <a class="collapse-item" href="pengolahan-menu-admin.php">Cards</a>
-                            <a class="collapse-item" href="pengolahan-laporan-admin.php">Cards</a>
+                            <a class="collapse-item" href="pengolahan-meja-admin.php">Pengolahan Meja</a>
+                            <a class="collapse-item" href="pengolahan-menu-admin.php">Persetujuan Menu</a>
+                            <a class="collapse-item" href="pengolahan-laporan-admin.php">Laporan Keuangan</a>
                         </div>
                     </div>
                 </li>
