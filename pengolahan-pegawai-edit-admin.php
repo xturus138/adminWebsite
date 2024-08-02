@@ -65,11 +65,14 @@ mysqli_close($db);
                     </div>
                     <div class="form-group">
                         <label>Jabatan</label>
-                        <select class="form-control" name="jabatan" required>
+                        <select class="form-control" name="jabatan" <?php echo ($pegawai['jabatan'] == 'admin') ? 'disabled' : ''; ?> required>
                             <option value="koki" <?php echo ($pegawai['jabatan'] == 'koki') ? 'selected' : ''; ?>>Koki</option>
                             <option value="pelayan" <?php echo ($pegawai['jabatan'] == 'pelayan') ? 'selected' : ''; ?>>Pelayan</option>
                             <option value="kasir" <?php echo ($pegawai['jabatan'] == 'kasir') ? 'selected' : ''; ?>>Kasir</option>
                         </select>
+                        <?php if ($pegawai['jabatan'] == 'admin'): ?>
+                            <input type="hidden" name="jabatan" value="admin">
+                        <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
