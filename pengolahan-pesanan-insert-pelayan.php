@@ -5,7 +5,6 @@ session_start();
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $table_number = strtolower($_POST['table_number']);
-    $order_status = strtolower($_POST['order_status']);
     
     // Get the employee id from the session
     if (isset($_SESSION['login_user'])) {
@@ -44,6 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $menu_id = str_replace('jumlah_', '', $key);
                     $quantity = (int)$value;
 
+                    // Reduce the stock in the menu table
+                    $updateStockQuery = "UPDATE menu SET stok = stok - ? WHERE no_menu = ?";
+                    $updateStockStmt = mysqli_prepare($db, $updateStockQuery);
+                    mysqli_stmt_bind_param($updateStockStmt, 'is', $quantity, $menu_id);
+                    mysqli_stmt_execute($updateStockStmt);
+
                     $insertItemQuery = "INSERT INTO isi_pesanan (no_menu, no_pesanan, jumlah) VALUES (?, ?, ?)";
                     $itemStmt = mysqli_prepare($db, $insertItemQuery);
                     mysqli_stmt_bind_param($itemStmt, 'sss', $menu_id, $order_id, $quantity);
@@ -60,13 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             mysqli_stmt_bind_param($updateStmt, 'ss', $total, $order_id);
             mysqli_stmt_execute($updateStmt);
 
-            // Optionally, update the table status if necessary
-            if (!empty($order_status)) {
-                $updateTableQuery = "UPDATE meja SET status_meja = ? WHERE no_meja = ?";
-                $updateTableStmt = mysqli_prepare($db, $updateTableQuery);
-                mysqli_stmt_bind_param($updateTableStmt, 'ss', $order_status, $table_number);
-                mysqli_stmt_execute($updateTableStmt);
-            }
+            // Update the table status to "dine in"
+            $updateTableQuery = "UPDATE meja SET status_meja = 'dine in' WHERE no_meja = ?";
+            $updateTableStmt = mysqli_prepare($db, $updateTableQuery);
+            mysqli_stmt_bind_param($updateTableStmt, 's', $table_number);
+            mysqli_stmt_execute($updateTableStmt);
 
             // Redirect or display a success message
             $_SESSION['success'] = "Order successfully submitted!";
@@ -94,6 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $menu_id = str_replace('jumlah_', '', $key);
                     $quantity = (int)$value;
 
+                    // Reduce the stock in the menu table
+                    $updateStockQuery = "UPDATE menu SET stok = stok - ? WHERE no_menu = ?";
+                    $updateStockStmt = mysqli_prepare($db, $updateStockQuery);
+                    mysqli_stmt_bind_param($updateStockStmt, 'is', $quantity, $menu_id);
+                    mysqli_stmt_execute($updateStockStmt);
+
                     $insertItemQuery = "INSERT INTO isi_pesanan (no_menu, no_pesanan, jumlah) VALUES (?, ?, ?)";
                     $itemStmt = mysqli_prepare($db, $insertItemQuery);
                     mysqli_stmt_bind_param($itemStmt, 'sss', $menu_id, $order_id, $quantity);
@@ -110,13 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             mysqli_stmt_bind_param($updateStmt, 'ss', $total, $order_id);
             mysqli_stmt_execute($updateStmt);
 
-            // Optionally, update the table status if necessary
-            if (!empty($order_status)) {
-                $updateTableQuery = "UPDATE meja SET status_meja = ? WHERE no_meja = ?";
-                $updateTableStmt = mysqli_prepare($db, $updateTableQuery);
-                mysqli_stmt_bind_param($updateTableStmt, 'ss', $order_status, $table_number);
-                mysqli_stmt_execute($updateTableStmt);
-            }
+            // Update the table status to "dine in"
+            $updateTableQuery = "UPDATE meja SET status_meja = 'dine in' WHERE no_meja = ?";
+            $updateTableStmt = mysqli_prepare($db, $updateTableQuery);
+            mysqli_stmt_bind_param($updateTableStmt, 's', $table_number);
+            mysqli_stmt_execute($updateTableStmt);
 
             // Redirect or display a success message
             $_SESSION['success'] = "Order successfully updated!";
@@ -137,6 +144,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $menu_id = str_replace('jumlah_', '', $key);
                         $quantity = (int)$value;
 
+                        // Reduce the stock in the menu table
+                        $updateStockQuery = "UPDATE menu SET stok = stok - ? WHERE no_menu = ?";
+                        $updateStockStmt = mysqli_prepare($db, $updateStockQuery);
+                        mysqli_stmt_bind_param($updateStockStmt, 'is', $quantity, $menu_id);
+                        mysqli_stmt_execute($updateStockStmt);
+
                         $insertItemQuery = "INSERT INTO isi_pesanan (no_menu, no_pesanan, jumlah) VALUES (?, ?, ?)";
                         $itemStmt = mysqli_prepare($db, $insertItemQuery);
                         mysqli_stmt_bind_param($itemStmt, 'sss', $menu_id, $order_id, $quantity);
@@ -153,13 +166,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 mysqli_stmt_bind_param($updateStmt, 'ss', $total, $order_id);
                 mysqli_stmt_execute($updateStmt);
 
-                // Optionally, update the table status if necessary
-                if (!empty($order_status)) {
-                    $updateTableQuery = "UPDATE meja SET status_meja = ? WHERE no_meja = ?";
-                    $updateTableStmt = mysqli_prepare($db, $updateTableQuery);
-                    mysqli_stmt_bind_param($updateTableStmt, 'ss', $order_status, $table_number);
-                    mysqli_stmt_execute($updateTableStmt);
-                }
+                // Update the table status to "dine in"
+                $updateTableQuery = "UPDATE meja SET status_meja = 'dine in' WHERE no_meja = ?";
+                $updateTableStmt = mysqli_prepare($db, $updateTableQuery);
+                mysqli_stmt_bind_param($updateTableStmt, 's', $table_number);
+                mysqli_stmt_execute($updateTableStmt);
 
                 // Redirect or display a success message
                 $_SESSION['success'] = "Order successfully submitted!";

@@ -433,45 +433,35 @@
                 </style>
             </head>
             <body>
-            <div class="container">
-                <h1>Menu Pencatatan Pesanan</h1>
+                <div class="container">
+                    <h1>Menu Pencatatan Pesanan</h1>
 
-                <form action="pengolahan-pesanan-insert-pelayan.php" method="POST">
-                    <div class="table-number">
-                        <label for="table-number">Nomor Meja:</label>
-                        <select id="table-number" name="table_number" required>
-                            <option value="" disabled selected>Pilih Nomor Meja</option>
+                    <form action="pengolahan-pesanan-insert-pelayan.php" method="POST">
+                        <div class="table-number">
+                            <h6 class="m-0 font-weight-bold text-primary">Semua Menu</h6>
+                            <select id="table-number" name="table_number" required>
+                                <option value="" disabled selected>Pilih Nomor Meja</option>
 
-                            <?php
-                            // Connect to the database
-                            include('config.php');
-                            
-                            // Fetch table numbers, capacities, and statuses from the database
-                            $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
-                            $result = mysqli_query($db, $query);
-                            
-                            // Generate options dynamically from the fetched data
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $no_meja = $row['no_meja'];
-                                $kapasitas = $row['kapasitas'];
-                                $status_meja = $row['status_meja'];
-                                echo "<option value=\"$no_meja\">Meja $no_meja - Kapasitas: $kapasitas - Status: $status_meja</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
+                                <?php
+                                // Connect to the database
+                                include('config.php');
+                                
+                                // Fetch table numbers, capacities, and statuses from the database
+                                $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
+                                $result = mysqli_query($db, $query);
+                                
+                                // Generate options dynamically from the fetched data
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $no_meja = $row['no_meja'];
+                                    $kapasitas = $row['kapasitas'];
+                                    $status_meja = $row['status_meja'];
+                                    echo "<option value=\"$no_meja\">Meja $no_meja - Kapasitas: $kapasitas - Status: $status_meja</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
 
-                <!-- Dropdown Status -->
-                    <div class="order-status">
-                        <label for="order-status">Status Pesanan:</label>
-                        <select id="order-status" name="order_status" required>
-                            <option value="" disabled selected>Pilih Status</option>
-                            <option value="dine in">Dine In</option>
-                            <option value="take away">Take Away</option>
-                        </select>
-                    </div>
-
-                <!-- Tabel Menu -->
+                        <!-- Tabel Menu -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="card shadow mb-4">
@@ -479,54 +469,50 @@
                                         <h6 class="m-0 font-weight-bold text-primary">Semua Menu</h6>
                                     </div>
                                     <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Menu</th>
-                                                    <th>Harga</th>
-                                                    <th>Stok</th>
-                                                    <th>Jumlah</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                // Fetch menu data from the database
-                                                $query = "SELECT no_menu, nama_menu, harga, stok FROM menu WHERE status_menu = 'setuju'";
-                                                $result = mysqli_query($db, $query);
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nama Menu</th>
+                                                        <th>Harga</th>
+                                                        <th>Stok</th>
+                                                        <th>Jumlah</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    // Fetch menu data from the database
+                                                    $query = "SELECT no_menu, nama_menu, harga, stok FROM menu WHERE status_menu = 'setuju'";
+                                                    $result = mysqli_query($db, $query);
 
-                                                // Display menu items in the table
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    $no_menu = $row['no_menu'];
-                                                    $nama_menu = $row['nama_menu'];
-                                                    $harga = $row['harga'];
-                                                    $stok = $row['stok'];
+                                                    // Display menu items in the table
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $no_menu = $row['no_menu'];
+                                                        $nama_menu = $row['nama_menu'];
+                                                        $harga = $row['harga'];
+                                                        $stok = $row['stok'];
 
-                                                    echo "<tr>";
-                                                    echo "<td>$no_menu</td>";
-                                                    echo "<td>$nama_menu</td>";
-                                                    echo "<td>$harga</td>";
-                                                    echo "<td>$stok</td>";
-                                                    echo "<td><input type='number' name='jumlah_$no_menu' min='0' max='$stok' placeholder='0'></td>";
-                                                    echo "</tr>";
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                        echo "<tr>";
+                                                        echo "<td>$no_menu</td>";
+                                                        echo "<td>$nama_menu</td>";
+                                                        echo "<td>$harga</td>";
+                                                        echo "<td>$stok</td>";
+                                                        echo "<td><input type='number' name='jumlah_$no_menu' min='0' max='$stok' placeholder='0'></td>";
+                                                        echo "</tr>";
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Catat Pesanan</button>
-                </form>
-            </div>
-            </body>
-
-
-
-               
+                    </form>
+                </div>
+            </body>              
             <!-- End of Page Content -->
              
         </div>
