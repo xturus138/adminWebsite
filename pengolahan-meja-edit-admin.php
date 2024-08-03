@@ -18,9 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
 } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
     $id = $_POST['id'];
     $kapasitas = $_POST['kapasitas'];
+    $status = $_POST['status'];
 
     // Update table record
-    $query = "UPDATE meja SET kapasitas = '$kapasitas' WHERE no_meja = '$id'";
+    $query = "UPDATE meja SET kapasitas = '$kapasitas', status_meja = '$status' WHERE no_meja = '$id'";
     if (mysqli_query($db, $query)) {
         echo "<div class='alert alert-success'>Table updated successfully!</div>";
     } else {
@@ -57,15 +58,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                 <h5 class="card-title">Edit Table</h5>
             </div>
             <div class="card-body">
-                <form action="pengolahan-meja-edit-admin.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
-                    <div class="form-group">
-                        <label for="kapasitas">Kapasitas</label>
-                        <input type="number" class="form-control" id="kapasitas" name="kapasitas" value="<?php echo htmlspecialchars($kapasitas); ?>" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Update Meja</button>
-                    <a href="pengolahan-meja-admin.php" class="btn btn-secondary">Kembali</a>
-                </form>
+            <form action="pengolahan-meja-edit-admin.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
+                <div class="form-group">
+                    <label for="kapasitas">Kapasitas</label>
+                    <input type="number" class="form-control" id="kapasitas" name="kapasitas" value="<?php echo htmlspecialchars($kapasitas); ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status Meja</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="kosong">Kosong</option>
+                        <option value="dine in">Dine In</option>
+                        <option value="take away" >Take Away</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Meja</button>
+                <a href="pengolahan-meja-admin.php" class="btn btn-secondary">Kembali</a>
+            </form>
+
             </div>
         </div>
     </div>
