@@ -374,40 +374,67 @@
                             <h6 class="m-0 font-weight-bold text-primary">Semua Pesanan</h6>
                         </div>
                         <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>No Meja</th>
-                                        <th>No ID</th>
-                                        <th>Total</th>
-                                        <th>Tanggal</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include 'config.php'; // Include database connection
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 10%;">No</th>
+                                            <th class="text-center" style="width: 10%;">No Meja</th>
+                                            <th class="text-center" style="width: 10%;">No ID</th>
+                                            <th class="text-center" style="width: 10%;">Total</th>
+                                            <th class="text-center" style="width: 10%;">Tanggal</th>
+                                            <th class="text-center" style="width: 10%;">Status</th>
+                                            <th class="text-center" style="width: 10%;">Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include 'config.php'; // Include database connection
 
-                                    // Query to select pesanan with specific statuses
-                                    $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai')";
-                                    $result = mysqli_query($db, $query);
+                                        // Query to select pesanan with specific statuses
+                                        $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai')";
+                                        $result = mysqli_query($db, $query);
 
-                                    $no = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<tr>";
-                                        echo "<td>" . $no++ . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['no_meja']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['total']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['status_pesanan']) . "</td>";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                                        $no = 1;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>";
+                                            echo "<td class='text-center'>" . $no++ . "</td>";
+                                            echo "<td class='text-center'>" . htmlspecialchars($row['no_meja']) . "</td>";
+                                            echo "<td class='text-center'>" . htmlspecialchars($row['no_id']) . "</td>";
+                                            echo "<td class='text-center'>" . htmlspecialchars($row['total']) . "</td>";
+                                            echo "<td class='text-center'>" . htmlspecialchars($row['tanggal']) . "</td>";
+                                            echo "<td class='text-center'>" . htmlspecialchars($row['status_pesanan']) . "</td>";
+                                            echo "<td class='text-center'>
+                                                <button type='button' class='btn btn-info' data-toggle='modal' data-target='#orderDetailModal' data-id='" . htmlspecialchars($row['no_id']) . "'>
+                                                    Detail
+                                                </button>
+                                            </td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Detail Modal -->
+            <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="orderDetailModalLabel">Detail Pesanan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="order-details-content">
+                            <!-- Order details will be loaded here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -454,6 +481,36 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script>
+        $('#orderDetailModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var orderId = button.data('id');
+
+            $.ajax({
+                url: 'status-pesanan-detail-pelayan.php',
+                type: 'GET',
+                data: {
+                    no_pesanan: orderId
+                },
+                success: function(response) {
+                    $('#order-details-content').html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('Terjadi kesalahan saat menampilkan detail pesanan');
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+                const statusDropdowns = document.querySelectorAll('.status-dropdown');
+                statusDropdowns.forEach(dropdown => {
+                    dropdown.addEventListener('change', function () {
+                        const orderId = this.getAttribute('data-id');
+                        const newStatus = this.value;
+                        window.location.href = `pengolahan-pesanan-status-pelayan.php?id=${orderId}&status_pesanan=${newStatus}`;
+                    });
+                });
+            });
+    </script>
 
 </body>
 

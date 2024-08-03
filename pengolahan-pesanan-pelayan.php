@@ -472,11 +472,11 @@
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>No</th>
-                                                            <th>Nama Menu</th>
-                                                            <th>Harga</th>
-                                                            <th>Stok</th>
-                                                            <th>Jumlah</th>
+                                                            <th class="text-center" style="width: 10%;">No</th>
+                                                            <th class="text-center" style="width: 10%;">Nama Menu</th>
+                                                            <th class="text-center" style="width: 10%;">Harga</th>
+                                                            <th class="text-center" style="width: 10%;">Stok</th>
+                                                            <th class="text-center" style="width: 10%;">Jumlah</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
