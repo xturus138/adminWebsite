@@ -20,6 +20,13 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
+
 </head>
 
 <body id="page-top">
@@ -372,65 +379,109 @@
                             <h6 class="m-0 font-weight-bold text-primary">Semua Pesanan</h6>
                         </div>
                         <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>No Meja</th>
-                                        <th>No ID</th>
-                                        <th>Total</th>
-                                        <th>Tanggal</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include 'config.php'; // Include database connection
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Meja</th>
+                                            <th>No ID</th>
+                                            <th>Total</th>
+                                            <th>Tanggal</th>
+                                            <th>Status</th>
+                                            <th>Detail</th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include 'config.php'; // Include database connection
 
-                                    // Query to select pesanan with specific statuses
-                                    $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai')";
-                                    $result = mysqli_query($db, $query);
+                                        // Query to select pesanan with specific statuses
+                                        $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai')";
+                                        $result = mysqli_query($db, $query);
 
-                                    $no = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        echo "<tr>";
-                                        echo "<td>" . $no++ . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['no_meja']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['total']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
-                                        echo "<td>" . htmlspecialchars($row['status_pesanan']) . "</td>";
-
-                                        // Determine the current status and possible next statuses
-                                        echo "<td>
-                                                <div class='dropdown'>
-                                                    <button class='btn btn-secondary dropdown-toggle btn-sm' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                        Pilih Status
-                                                    </button>
-                                                    <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=tunggu'>Tunggu</a>
-                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=masak'>Masak</a>
-                                                        <a class='dropdown-item' href='pengolahan-pesanan-status-koki.php?id=" . $row['no_pesanan'] . "&status_pesanan=selesai'>Selesai</a>
-                                                    </div>
-                                                </div>
-                                            </td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                        $no = 1;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $no++ . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['no_meja']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['total']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
+                                            echo "<td>
+                                                    <select class='form-control status-dropdown' data-id='" . $row['no_pesanan'] . "'>
+                                                        <option value='tunggu'" . ($row['status_pesanan'] == 'tunggu' ? ' selected' : '') . ">Tunggu</option>
+                                                        <option value='masak'" . ($row['status_pesanan'] == 'masak' ? ' selected' : '') . ">Masak</option>
+                                                        <option value='selesai'" . ($row['status_pesanan'] == 'selesai' ? ' selected' : '') . ">Selesai</option>
+                                                    </select>
+                                                </td>";
+                                            echo "<td>
+                                                    <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#detailModal' data-id='" . $row['no_pesanan'] . "'>Detail</button>
+                                                </td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-
+            <!-- Modal for Order Details -->
+            <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailModalLabel">Detail Pesanan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Order details will be loaded here using JavaScript -->
+                            <div id="order-details"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             </div>
             </div>
+
+            <script>
+            $(document).ready(function() {
+                $('#detailModal').on('show.bs.modal', function(event) {
+                    var button = $(event.relatedTarget);
+                    var noPesanan = button.data('id');
+                    
+                    $.ajax({
+                        url: 'pengolahan-pesanan-detail-koki.php',
+                        method: 'GET',
+                        data: { no_pesanan: noPesanan },
+                        success: function(response) {
+                            $('#order-details').html(response);
+                        }
+                    });
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const statusDropdowns = document.querySelectorAll('.status-dropdown');
+                statusDropdowns.forEach(dropdown => {
+                    dropdown.addEventListener('change', function () {
+                        const orderId = this.getAttribute('data-id');
+                        const newStatus = this.value;
+                        window.location.href = `pengolahan-pesanan-status-koki.php?id=${orderId}&status_pesanan=${newStatus}`;
+                    });
+                });
+            });
+            </script>
+
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -473,15 +524,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
 
 </body>
 
