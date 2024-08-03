@@ -434,7 +434,7 @@
                                 <option value="" disabled selected>Pilih Nomor Meja</option>
                                 <?php
                                 include('config.php');
-                                $query = "SELECT no_meja, kapasitas, status_meja FROM meja";
+                                $query = "SELECT no_meja, kapasitas, status_meja FROM meja WHERE status_meja = 'kosong'";
                                 $result = mysqli_query($db, $query);
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     $no_meja = $row['no_meja'];
@@ -445,33 +445,13 @@
                                 ?>
                             </select>
                         </div>
-
-                        <div class="order-status">
-                            <label for="order-status">Status Pesanan:</label>
-                            <select id="order-status" name="order_status" required>
-                                <option value="" disabled selected>Pilih Status</option>
-                                <option value="kosong">Kosong</option>
-                                <option value="dine in">Dine In</option>
-                                <option value="take away">Take Away</option>
-                            </select>
-                        </div>
-
-                        <div class="order-date form-group row">
-                            <label for="order-date" class="col-sm-3 col-form-label">Tanggal Reservasi:</label>
-                            <div class="col-sm-9">
-                                <input type="date" id="order-date" name="order_date" class="form-control" required>
-                            </div>
-                        </div>
                         <br>
                         <button type="submit" class="btn btn-primary btn-block">Catat Reservasi</button>
-
                     </form>
                 </div>
             </body>
     
             <!-- End of Page Content -->
-
-        
 
         </div>
         <!-- End of Content Wrapper -->

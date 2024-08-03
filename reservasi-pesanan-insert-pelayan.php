@@ -6,8 +6,6 @@ include('config.php'); // Menggunakan koneksi database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil data dari form
     $no_meja = $_POST['table_number'];
-    $order_date = $_POST['order_date'];
-    $order_status = $_POST['order_status'];
     
     // Ambil no_id dari session
     if(isset($_SESSION['login_user'])) {
@@ -21,14 +19,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Set status_pesanan ke "tunggu"
     $status_pesanan = "tunggu";
     
+    // Set status_meja to "reservasi"
+    $status_meja = "reservasi";
+    
     // Mulai transaksi
     mysqli_begin_transaction($db);
 
     try {
         // Insert data ke tabel pesanan
-        $query = "INSERT INTO pesanan (no_meja, no_id, tanggal, status_pesanan) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO pesanan (no_meja, no_id, status_pesanan) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($db, $query);
-        mysqli_stmt_bind_param($stmt, "iiss", $no_meja, $no_id, $order_date, $status_pesanan);
+        mysqli_stmt_bind_param($stmt, "iis", $no_meja, $no_id, $status_pesanan);
         
         if (!mysqli_stmt_execute($stmt)) {
             throw new Exception('Gagal menyimpan data pesanan.');
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Update status meja
         $updateQuery = "UPDATE meja SET status_meja = ? WHERE no_meja = ?";
         $updateStmt = mysqli_prepare($db, $updateQuery);
-        mysqli_stmt_bind_param($updateStmt, "si", $order_status, $no_meja);
+        mysqli_stmt_bind_param($updateStmt, "si", $status_meja, $no_meja);
         
         if (!mysqli_stmt_execute($updateStmt)) {
             throw new Exception('Gagal mengupdate status meja.');
