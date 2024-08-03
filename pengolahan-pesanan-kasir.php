@@ -354,7 +354,7 @@
                                                 <th class="text-center" style="width: 12%;">Nomor Pesanan</th>
                                                 <th class="text-center" style="width: 20%;">Tanggal</th>
                                                 <th class="text-center" style="width: 18%;">Nomor Meja</th>
-                                                <th class="text-center" style="width: 10%;">Jumlah</th>
+                                                <th class="text-center" style="width: 10%;">Total Jumlah</th>
                                                 <th class="text-center" style="width: 20%;">Total</th>
                                                 <th class="text-center" style="width: 20%;">Status</th>
                                                 <th class="text-center" style="width: 10%;">Detail</th>
