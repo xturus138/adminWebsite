@@ -110,6 +110,7 @@
                     <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Menu Kasir</h6>
+                            <a class="collapse-item" href="pengolahan-pesanan-harian-kasir.php">Pengolahan Pesanan</a>
                             <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Histori Pesanan</a>
                             <a class="collapse-item" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
                         </div>
@@ -347,6 +348,17 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    <form method="POST" action="">
+                                        <div class="form-group">
+                                            <div class="form-group col-md-4">
+                                                <label for="search_date">Cari berdasarkan Tanggal:</label>
+                                                <input type="date" class="form-control" id="search_date" name="search_date">
+                                            </div>
+                                            <div class="form-group col-md-4 align-self-end">
+                                                <button type="submit" class="btn btn-primary">Cari</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -362,16 +374,26 @@
                                         <tbody id="orders-table-body">
                                             <?php
                                             include 'config.php';
+
                                             // Define statuses to include
                                             $statuses = ["selesai", "belum dibayar", "sudah dibayar"];
+
+                                            // Fetch search date from POST request
+                                            $searchDate = isset($_POST['search-date']) ? $_POST['search-date'] : '';
 
                                             // SQL query to fetch orders
                                             $sql = "SELECT o.no_pesanan, o.tanggal, m.no_meja, SUM(ip.jumlah) as total_jumlah, o.total, o.status_pesanan
                                                     FROM pesanan o
                                                     JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
                                                     JOIN meja m ON o.no_meja = m.no_meja
-                                                    WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar')
-                                                    GROUP BY o.no_pesanan, o.tanggal, m.no_meja, o.total, o.status_pesanan";
+                                                    WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar')";
+
+                                            // Add date filter if search date is provided
+                                            if ($searchDate) {
+                                                $sql .= " AND o.tanggal = '$searchDate'";
+                                            }
+
+                                            $sql .= " GROUP BY o.no_pesanan, o.tanggal, m.no_meja, o.total, o.status_pesanan";
 
                                             $result = mysqli_query($db, $sql);
 
@@ -379,40 +401,29 @@
                                                 $no = 1; // Initialize row number
                                                 while ($row = mysqli_fetch_assoc($result)) {
                                                     // Determine button class based on status
-                                                    $status = $row['status_pesanan'];
-                                                    $btnClass = 'btn-warning';
-
-                                                    if ($status == 'selesai') {
-                                                        $btnClass = 'btn-primary';
-                                                    } else if ($status == 'belum dibayar') {
-                                                        $btnClass = 'btn-danger';
-                                                    } else if ($status == 'sudah dibayar') {
-                                                        $btnClass = 'btn-success';
-                                                    }
+                                                    if ($row['status_pesanan'] === 'sudah dibayar') {
 
                                                     echo "<tr>
-                                                        <td class='text-center'>{$no}</td>
-                                                        <td>{$row['no_pesanan']}</td>
-                                                        <td>{$row['tanggal']}</td>
-                                                        <td>{$row['no_meja']}</td>
-                                                        <td>{$row['total']}</td>
-                                                        <td>
-                                                            <div class='dropdown'>
-                                                                <button class='btn $btnClass dropdown-toggle' type='button' id='statusDropdown{$row['no_pesanan']}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                                    {$status}
-                                                                </button>
-                                                                <div class='dropdown-menu' aria-labelledby='statusDropdown{$row['no_pesanan']}'>
-                                                                    <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='sudah dibayar' onclick='updateStatus(this)'>sudah dibayar</a>
+                                                            <td class='text-center'>{$no}</td>
+                                                            <td>{$row['no_pesanan']}</td>
+                                                            <td>{$row['tanggal']}</td>
+                                                            <td>{$row['no_meja']}</td>
+                                                            <td>{$row['total']}</td>
+                                                            <td>
+                                                                <div class='text-center'>
+                                                                    <button class='btn btn-success' type='button' id='statusDropdown{$row['status_pesanan']}' aria-haspopup='true' aria-expanded='false'>
+                                                                        sudah dibayar
+                                                                    </button>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class='text-center'>
-                                                            <button type='button' class='btn btn-info' data-toggle='modal' data-target='#orderDetailModal' data-id='{$row['no_pesanan']}'>
-                                                                Detail
-                                                            </button>
-                                                        </td>
-                                                    </tr>";
+                                                            </td>
+                                                            <td class='text-center'>
+                                                                <button type='button' class='btn btn-info' data-toggle='modal' data-target='#orderDetailModal' data-id='{$row['no_pesanan']}'>
+                                                                    Detail
+                                                                </button>
+                                                            </td>
+                                                        </tr>";
                                                     $no++;
+                                                    }
                                                 }
                                             } else {
                                                 echo "<tr><td colspan='8'>Pesanan tidak ditemukan</td></tr>";
@@ -426,42 +437,44 @@
                         </div>
                     </div>
                 </div>
-                <!-- /.container-fluid -->
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Detail Modal -->
-            <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Pesanan</h1>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="order-details-content"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Resto Unikom 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- /.container-fluid -->
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Pesanan</h1>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="order-details-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Resto Unikom 2024</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -493,7 +506,7 @@
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 

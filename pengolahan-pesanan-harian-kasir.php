@@ -110,9 +110,9 @@
                     <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Menu Kasir</h6>
-                            <a class="collapse-item" href="pengolahan-pesanan-harian-kasir.php">Pengolahan Pesanan</a>
-                            <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Histori Pesanan</a>
-                            <a class="collapse-item active" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
+                            <a class="collapse-item active" href="pengolahan-pesanan-harian-kasir.php">Pengolahan Pesanan</a>
+                            <a class="collapse-item " href="pengolahan-pesanan-kasir.php">Histori Pesanan</a>
+                            <a class="collapse-item" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
                         </div>
                     </div>
                 </li>
@@ -305,7 +305,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Budi Kasir</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Budi Kasir </span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -335,88 +335,143 @@
                 </nav>
                 <!-- End of Topbar -->
 
-<!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Laporan Keuangan</h1>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Pengolahan Pesanan</h1>
+                    <!-- Orders Tab -->
+                    <div id="orders" class="tab-content">
+                        <p class="mb-4">Daftar Pesanan Dari Semua Pelanggan Hari Ini.</p>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tabel Pesanan</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <form method="POST" action="">
+                                    </form>
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width: 5%;">No</th>
+                                                <th class="text-center" style="width: 12%;">Nomor Pesanan</th>
+                                                <th class="text-center" style="width: 20%;">Tanggal</th>
+                                                <th class="text-center" style="width: 18%;">Nomor Meja</th>
+                                                <th class="text-center" style="width: 20%;">Total</th>
+                                                <th class="text-center" style="width: 20%;">Status</th>
+                                                <th class="text-center" style="width: 10%;">Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="orders-table-body">
+                                            <?php
+                                            include 'config.php';
 
-    <!-- Date Range Form -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Pilih Periode Waktu</h6>
-        </div>
-        <div class="card-body">
-            <form id="report-form" action="pengolahan-laporan-keuangan-kasir.php" method="get">
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="start_date">Tanggal Mulai</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" required>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="end_date">Tanggal Akhir</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date" required>
-                    </div>
-                    <div class="form-group col-md-4 align-self-end">
-                        <button type="submit" class="btn btn-primary">Lihat Laporan</button>
+                                            // Define statuses to include
+                                            $statuses = ["selesai", "belum dibayar", "sudah dibayar"];
+
+                                            // Function to get today date
+                                            date_default_timezone_set('Asia/Jakarta');
+                                            $today = date('Y-m-d');
+
+                                            // SQL query to fetch orders
+                                            $sql = "SELECT o.no_pesanan, o.tanggal, m.no_meja, SUM(ip.jumlah) as total_jumlah, o.total, o.status_pesanan
+                                                    FROM pesanan o
+                                                    JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
+                                                    JOIN meja m ON o.no_meja = m.no_meja
+                                                    WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar') AND DATE(o.tanggal) = '$today'
+                                                    GROUP BY o.no_pesanan, o.tanggal, m.no_meja, o.total, o.status_pesanan"; 
+
+                                            $result = mysqli_query($db, $sql);
+
+                                            if (mysqli_num_rows($result) > 0) {
+                                                $no = 1; // Initialize row number
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    // Determine button class based on status
+                                                    $status = $row['status_pesanan'];
+                                                    $btnClass = 'btn-warning';
+
+                                                    if ($status == 'selesai') {
+                                                        $btnClass = 'btn-primary';
+                                                    } else if ($status == 'belum dibayar') {
+                                                        $btnClass = 'btn-danger';
+                                                    } else if ($status == 'sudah dibayar') {
+                                                        $btnClass = 'btn-success';
+                                                    }
+
+                                                    echo "<tr>
+                                        <td class='text-center'>{$no}</td>
+                                        <td>{$row['no_pesanan']}</td>
+                                        <td>{$row['tanggal']}</td>
+                                        <td>{$row['no_meja']}</td>
+                                        <td>{$row['total']}</td>
+                                        <td>
+                                            <div class='dropdown'>
+                                                <button class='btn $btnClass dropdown-toggle' type='button' id='statusDropdown{$row['no_pesanan']}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                    {$status}
+                                                </button>
+                                                <div class='dropdown-menu' aria-labelledby='statusDropdown{$row['no_pesanan']}'>
+                                                    <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='sudah dibayar' onclick='updateStatus(this)'>sudah dibayar</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class='text-center'>
+                                            <button type='button' class='btn btn-info' data-toggle='modal' data-target='#orderDetailModal' data-id='{$row['no_pesanan']}'>
+                                                Detail
+                                            </button>
+                                        </td>
+                                    </tr>";
+                                                    $no++;
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='8' class='text-center'>Pesanan tidak ditemukan</td></tr>";
+                                            }
+                                            mysqli_close($db);
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
+        <!-- /.container-fluid -->
     </div>
+    <!-- End of Main Content -->
 
-    <?php include 'pengolahan-laporan-keuangan-kasir(data).php'; ?>
-
-    <!-- Report Results -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Tanggal</th>
-                            <th class="text-center">Total Penjualan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="report-table-body">
-                        <?php
-                        if (!empty($tanggal)) {
-                            for ($i = 0; $i < count($tanggal); $i++) {
-                                echo "<tr>";
-                                echo "<td class='text-center'>{$tanggal[$i]}</td>";
-                                echo "<td class='text-center'>{$total_penjualan[$i]}</td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr>";
-                            echo "<td colspan='2' class='text-center'>Tidak ada data</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
+    <!-- Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detail Pesanan</h1>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="order-details-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
-</div>
-<!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Resto Unikom 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Resto Unikom 2024</span>
+            </div>
         </div>
-        <!-- End of Content Wrapper -->
+    </footer>
+    <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -431,20 +486,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Pilih "Logout" di bawah jika Anda siap mengakhiri sesi saat ini.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <a class="btn btn-primary" href="index.html">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -456,6 +510,56 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
+    <!-- Updated data in database and fetch order details on modal function -->
+    <script>
+        $('#orderDetailModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            var orderId = button.data('id');
+
+            $.ajax({
+                url: 'pengolahan-pesanan-detail-kasir.php',
+                type: 'GET',
+                data: {
+                    no_pesanan: orderId
+                },
+                success: function(response) {
+                    $('#order-details-content').html(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('Terjadi kesalahan saat menampilkan detail pesanan');
+                }
+            });
+        });
+
+        function updateStatus(element) {
+            var orderId = $(element).data('id');
+            var status = $(element).data('status');
+            var button = $('#statusDropdown' + orderId);
+
+            $.ajax({
+                url: 'pengolahan-pesanan-status-kasir.php',
+                type: 'POST',
+                data: {
+                    no_pesanan: orderId,
+                    status: status
+                },
+                success: function(response) {
+                    button.text(status);
+                    button.removeClass('btn-warning btn-success btn-danger btn-primary');
+                    if (status === 'selesai') {
+                        button.addClass('btn-primary');
+                    } else if (status === 'belum dibayar') {
+                        button.addClass('btn-danger');
+                    } else if (status === 'sudah dibayar') {
+                        button.addClass('btn-success');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Terjadi kesalahan saat memperbarui status');
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
