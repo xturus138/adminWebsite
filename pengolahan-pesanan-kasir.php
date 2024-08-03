@@ -110,7 +110,7 @@
                     <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Menu Kasir</h6>
-                            <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
+                            <a class="collapse-item active" href="pengolahan-pesanan-kasir.php">Histori Pesanan</a>
                             <a class="collapse-item" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
                         </div>
                     </div>
@@ -337,7 +337,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Total Pesanan</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Histori Pesanan</h1>
                     <!-- Orders Tab -->
                     <div id="orders" class="tab-content">
                         <p class="mb-4">Daftar Pesanan Dari Semua Pelanggan.</p>
@@ -404,7 +404,6 @@
                                                                     {$status}
                                                                 </button>
                                                                 <div class='dropdown-menu' aria-labelledby='statusDropdown{$row['no_pesanan']}'>
-                                                                    <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='belum dibayar' onclick='updateStatus(this)'>belum dibayar</a>
                                                                     <a class='dropdown-item' href='#' data-id='{$row['no_pesanan']}' data-status='sudah dibayar' onclick='updateStatus(this)'>sudah dibayar</a>
                                                                 </div>
                                                             </div>

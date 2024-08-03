@@ -110,7 +110,7 @@
                     <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Menu Kasir</h6>
-                            <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
+                            <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Histori Pesanan</a>
                             <a class="collapse-item active" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
                         </div>
                     </div>
