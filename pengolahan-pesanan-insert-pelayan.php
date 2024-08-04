@@ -19,6 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Calculate the total amount
     $total = 0;
 
+    // Check if any menu item is selected
+    $orderIsEmpty = true;
+
+    // Iterate over POST data to check if there is any non-zero quantity
+    foreach ($_POST as $key => $value) {
+        if (strpos($key, 'jumlah_') === 0 && $value > 0) {
+            $orderIsEmpty = false;
+            break;
+        }
+    }
+
+    if ($orderIsEmpty) {
+        $_SESSION['error'] = "No menu items selected. Please select at least one menu item.";
+        header('Location: pengolahan-pesanan-pelayan.php');
+        exit();
+    }
+
     // Check the current status of the table
     $checkTableStatusQuery = "SELECT status_meja FROM meja WHERE no_meja = ?";
     $checkTableStatusStmt = mysqli_prepare($db, $checkTableStatusQuery);
@@ -185,30 +202,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-function calculateMenuTotal($db, $menu_id, $quantity) {
-    $query = "SELECT harga FROM menu WHERE no_menu = ?";
-    $stmt = mysqli_prepare($db, $query);
-    mysqli_stmt_bind_param($stmt, 's', $menu_id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $price);
-    mysqli_stmt_fetch($stmt);
-    mysqli_stmt_close($stmt);
-    return $price * $quantity;
-}
-
+// Function to calculate the total amount of an order
 function calculateOrderTotal($db, $order_id) {
-    $query = "
-        SELECT SUM(menu.harga * isi_pesanan.jumlah)
-        FROM isi_pesanan
-        JOIN menu ON isi_pesanan.no_menu = menu.no_menu
-        WHERE isi_pesanan.no_pesanan = ?
-    ";
-    $stmt = mysqli_prepare($db, $query);
-    mysqli_stmt_bind_param($stmt, 's', $order_id);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $total);
-    mysqli_stmt_fetch($stmt);
-    mysqli_stmt_close($stmt);
+    $totalQuery = "SELECT SUM(ip.jumlah * m.harga) AS total FROM isi_pesanan ip JOIN menu m ON ip.no_menu = m.no_menu WHERE ip.no_pesanan = ?";
+    $totalStmt = mysqli_prepare($db, $totalQuery);
+    mysqli_stmt_bind_param($totalStmt, 's', $order_id);
+    mysqli_stmt_execute($totalStmt);
+    mysqli_stmt_bind_result($totalStmt, $total);
+    mysqli_stmt_fetch($totalStmt);
+    mysqli_stmt_close($totalStmt);
     return $total;
 }
 ?>

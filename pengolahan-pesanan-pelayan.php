@@ -362,6 +362,20 @@
 
             <!-- Begin Page Content -->
             <title>Menu Pencatatan Pesanan</title>
+            <?php
+            include('config.php');
+
+            // Check if there is an error message in the session
+            if (isset($_SESSION['error'])) {
+                $errorMessage = $_SESSION['error'];
+                echo "<script>alert('$errorMessage');</script>";
+                unset($_SESSION['error']); // Remove the error message after displaying it
+            }
+
+            // Fetch menu data from the database
+            $query = "SELECT * FROM menu";
+            $result = mysqli_query($db, $query);
+            ?>
             <style>
                     body {
                         font-family: 'Nunito', sans-serif;

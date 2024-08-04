@@ -383,6 +383,7 @@
                                             <th>No ID</th>
                                             <th>Total</th>
                                             <th>Tanggal</th>
+                                            <th>Status</th>
                                             <th>Detail</th> 
                                         </tr>
                                     </thead>
@@ -402,6 +403,7 @@
                                             echo "<td>" . htmlspecialchars($row['no_id']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['total']) . "</td>";
                                             echo "<td>" . htmlspecialchars($row['tanggal']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['status_pesanan']) . "</td>";
                                             echo "<td>
                                                     <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#detailModal' data-id='" . $row['no_pesanan'] . "'>Detail</button>
                                                 </td>";
