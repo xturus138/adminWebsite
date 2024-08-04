@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])) {
                     <select class="form-control" id="status" name="status">
                         <option value="kosong">Kosong</option>
                         <option value="dine in">Dine In</option>
-                        <option value="take away" >Take Away</option>
+                        <option value="reservasi" >Reservation</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Update Meja</button>
