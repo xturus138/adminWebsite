@@ -1,3 +1,22 @@
+<?php
+    session_start();
+    include('config.php'); // Contains the database connection code
+
+    // Cek apakah pengguna sudah login
+    if (!isset($_SESSION['login_user'])) {
+        header("location: index.html");
+        exit();
+        }
+
+    $no_id = $_SESSION['login_user'];
+    $jabatan = $_SESSION['jabatan'];
+    // Query to get user information
+    $sql = "SELECT nama FROM pegawai WHERE no_id = '$no_id'";
+    $result = mysqli_query($db, $sql);
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+    $user_name = $row['nama']; // Retrieve user's name
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,20 +74,6 @@
             <div class="sidebar-heading">
                 Menu
             </div>
-
-            <?php
-            session_start();
-            include('config.php'); // Contains the database connection code
-
-            // Cek apakah pengguna sudah login
-            if (!isset($_SESSION['login_user'])) {
-                header("location: index.html");
-                exit();
-            }
-
-            // Ambil jabatan pengguna dari session
-            $jabatan = $_SESSION['jabatan'];
-            ?>
 
           <!-- Nav Item - Pages Collapse Menu -->
             <?php if ($jabatan == 'koki') { ?>
@@ -173,182 +178,28 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                       <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo htmlspecialchars($user_name); ?></span>
+                            <img class="img-profile rounded-circle"
+                                src="img/undraw_profile.svg">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
                             </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+                        </div>
+                    </li>
 
                     </ul>
 
@@ -356,120 +207,120 @@
                 <!-- End of Topbar -->
 
                 <?php
-// Include database connection
-include 'config.php';
+                // Include database connection
+                include 'config.php';
 
 
 
-// Initialize variable to store counts
-$menu_pending_count = 0;
-$table_empty_count = 0;
-$order_waiting_count = 0;
-$order_cooking_count = 0;
-$order_done_count = 0;
+                // Initialize variable to store counts
+                $menu_pending_count = 0;
+                $table_empty_count = 0;
+                $order_waiting_count = 0;
+                $order_cooking_count = 0;
+                $order_done_count = 0;
 
-// Check user role and fetch data accordingly
-switch ($_SESSION['jabatan']) {
-    case 'admin':
-        // Query to count menu with status 'tunda'
-        $query = "SELECT COUNT(*) as count FROM menu WHERE status_menu = 'tunda'";
-        $result = mysqli_query($db, $query);
-        if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            $menu_pending_count = $row['count'];
-        }
-        break;
-    case 'pelayan':
-        // Query to count tables with status 'kosong'
-        $query = "SELECT COUNT(*) as count FROM meja WHERE status_meja = 'kosong'";
-        $result = mysqli_query($db, $query);
-        if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            $table_empty_count = $row['count'];
-        }
-        break;
-    case 'koki':
-        // Query to count orders with status 'tunggu' and 'masak'
-        $query_waiting = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'tunggu'";
-        $result_waiting = mysqli_query($db, $query_waiting);
-        if ($result_waiting) {
-            $row = mysqli_fetch_assoc($result_waiting);
-            $order_waiting_count = $row['count'];
-        }
-
-        $query_cooking = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'masak'";
-        $result_cooking = mysqli_query($db, $query_cooking);
-        if ($result_cooking) {
-            $row = mysqli_fetch_assoc($result_cooking);
-            $order_cooking_count = $row['count'];
-        }
-        break;
-    case 'kasir':
-        // Query to count orders with status 'selesai'
-        $query = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'selesai'";
-        $result = mysqli_query($db, $query);
-        if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            $order_done_count = $row['count'];
-        }
-        break;
-    default:
-        // No specific role
-        break;
-}
-
-?>
-
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Sistem Resto UNIKOM</h1>
-    </div>
-
-    <!-- Role User -->
-    <div class="row">
-        <div class="col-xl-12 col-lg-12">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Perhatian!</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                    <div class="alert alert-info" role="alert">
-                        <strong>Peran Anda: </strong> <?php echo $_SESSION['jabatan']; ?>. Ini adalah tampilan untuk tugas <?php echo $_SESSION['jabatan']; ?> di sistem Resto UNIKOM.
-                    </div>
-                    <p>Silakan gunakan menu di sebelah kiri untuk mengakses fitur-fitur sesuai dengan peran Anda.</p>
-                    <ul class="list-group">
-                        <?php
-                        switch ($_SESSION['jabatan']) {
-                            case 'koki':
-                                echo '<li class="list-group-item">- Pesanan yang masih dimasak: ' . $order_cooking_count . '</li>';
-                                echo '<li class="list-group-item">- Pesanan yang menunggu untuk dimasak: ' . $order_waiting_count . '</li>';
-                                break;
-                            case 'pelayan':
-                                echo '<li class="list-group-item">- Total meja yang masih kosong: ' . $table_empty_count . '</li>';
-                                break;
-                            case 'admin':
-                                echo '<li class="list-group-item">- Total menu yang masih belum disetujui: ' . $menu_pending_count . '</li>';
-                                break;
-                            case 'kasir':
-                                echo '<li class="list-group-item">- Total pesanan yang belum dibayar: ' . $order_done_count .  ' (pesanan dengan status selesai)</li>';
-                                break;
-                            default:
-                                echo '<li class="list-group-item">- Tidak ada tugas khusus</li>';
+                // Check user role and fetch data accordingly
+                switch ($_SESSION['jabatan']) {
+                    case 'admin':
+                        // Query to count menu with status 'tunda'
+                        $query = "SELECT COUNT(*) as count FROM menu WHERE status_menu = 'tunda'";
+                        $result = mysqli_query($db, $query);
+                        if ($result) {
+                            $row = mysqli_fetch_assoc($result);
+                            $menu_pending_count = $row['count'];
                         }
-                        ?>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                        break;
+                    case 'pelayan':
+                        // Query to count tables with status 'kosong'
+                        $query = "SELECT COUNT(*) as count FROM meja WHERE status_meja = 'kosong'";
+                        $result = mysqli_query($db, $query);
+                        if ($result) {
+                            $row = mysqli_fetch_assoc($result);
+                            $table_empty_count = $row['count'];
+                        }
+                        break;
+                    case 'koki':
+                        // Query to count orders with status 'tunggu' and 'masak'
+                        $query_waiting = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'tunggu'";
+                        $result_waiting = mysqli_query($db, $query_waiting);
+                        if ($result_waiting) {
+                            $row = mysqli_fetch_assoc($result_waiting);
+                            $order_waiting_count = $row['count'];
+                        }
 
-</div>
-<!-- /.container-fluid -->
+                        $query_cooking = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'masak'";
+                        $result_cooking = mysqli_query($db, $query_cooking);
+                        if ($result_cooking) {
+                            $row = mysqli_fetch_assoc($result_cooking);
+                            $order_cooking_count = $row['count'];
+                        }
+                        break;
+                    case 'kasir':
+                        // Query to count orders with status 'selesai'
+                        $query = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'selesai'";
+                        $result = mysqli_query($db, $query);
+                        if ($result) {
+                            $row = mysqli_fetch_assoc($result);
+                            $order_done_count = $row['count'];
+                        }
+                        break;
+                    default:
+                        // No specific role
+                        break;
+                }
+
+                ?>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Sistem Resto UNIKOM</h1>
+                    </div>
+
+                    <!-- Role User -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Perhatian!</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="alert alert-info" role="alert">
+                                        <strong>Peran Anda: </strong> <?php echo $_SESSION['jabatan']; ?>. Ini adalah tampilan untuk tugas <?php echo $_SESSION['jabatan']; ?> di sistem Resto UNIKOM.
+                                    </div>
+                                    <p>Silakan gunakan menu di sebelah kiri untuk mengakses fitur-fitur sesuai dengan peran Anda.</p>
+                                    <ul class="list-group">
+                                        <?php
+                                        switch ($_SESSION['jabatan']) {
+                                            case 'koki':
+                                                echo '<li class="list-group-item">- Pesanan yang masih dimasak: ' . $order_cooking_count . '</li>';
+                                                echo '<li class="list-group-item">- Pesanan yang menunggu untuk dimasak: ' . $order_waiting_count . '</li>';
+                                                break;
+                                            case 'pelayan':
+                                                echo '<li class="list-group-item">- Total meja yang masih kosong: ' . $table_empty_count . '</li>';
+                                                break;
+                                            case 'admin':
+                                                echo '<li class="list-group-item">- Total menu yang masih belum disetujui: ' . $menu_pending_count . '</li>';
+                                                break;
+                                            case 'kasir':
+                                                echo '<li class="list-group-item">- Total pesanan yang belum dibayar: ' . $order_done_count .  ' (pesanan dengan status selesai)</li>';
+                                                break;
+                                            default:
+                                                echo '<li class="list-group-item">- Tidak ada tugas khusus</li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
 
 
 
