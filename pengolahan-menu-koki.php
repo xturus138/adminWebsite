@@ -392,7 +392,6 @@
                     </div>
                     <?php
                 include 'config.php';
-
                 // Query for approved menu items
                 $query_approved = "SELECT * FROM menu WHERE status_menu = 'setuju'";
                 $result_approved = mysqli_query($db, $query_approved);
@@ -409,85 +408,94 @@
                     die("Query failed: " . mysqli_error($db));
                 }
                 ?>
-                <!-- Tabel Menu yang Disetujui -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Menu yang Disetujui</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Menu</th>
-                                                <th>Stok</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $no = 1;
-                                            while ($row = mysqli_fetch_assoc($result_approved)) {
-                                                echo "<tr>";
-                                                echo "<td>" . $no++ . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['nama_menu']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['stok']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['status_menu']) . "</td>";
-                                                echo "<td>
-                                                        <a href='pengolahan-menu-edit-koki.php?id=" . $row['no_menu'] . "' class='btn btn-primary btn-sm'>Edit</a>
-                                                    </td>";
-                                                echo "</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!-- Tabel Menu yang Disetujui -->
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Menu yang Disetujui</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Menu</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            while ($row = mysqli_fetch_assoc($result_approved)) {
+                                echo "<tr>";
+                                echo "<td>" . $no++ . "</td>";
+                                echo "<td>" . htmlspecialchars($row['nama_menu']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['harga']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['stok']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['status_menu']) . "</td>";
+                                echo "<td>
+                                        <a href='pengolahan-menu-edit-koki.php?id=" . $row['no_menu'] . "' class='btn btn-primary btn-sm'>Edit</a>
+                                    </td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <!-- Tabel Menu yang Ditunda -->
-                <div class="row mt-4">
-                    <div class="col-12">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-warning">Menu yang Ditunda</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Menu</th>
-                                                <th>Stok</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $no = 1;
-                                            while ($row = mysqli_fetch_assoc($result_pending)) {
-                                                echo "<tr>";
-                                                echo "<td>" . $no++ . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['nama_menu']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['stok']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['status_menu']) . "</td>";
-                                                echo "</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!-- Tabel Menu yang Ditunda -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-warning">Menu yang Ditunda</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Menu</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $no = 1;
+                            while ($row = mysqli_fetch_assoc($result_pending)) {
+                                echo "<tr>";
+                                echo "<td>" . $no++ . "</td>";
+                                echo "<td>" . htmlspecialchars($row['nama_menu']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['harga']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['stok']) . "</td>";
+                                echo "<td>" . htmlspecialchars($row['status_menu']) . "</td>";
+                                echo "<td>
+                                        <a href='pengolahan-menu-edit-koki.php?id=" . $row['no_menu'] . "' class='btn btn-primary btn-sm'>Edit</a>
+                                    </td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
