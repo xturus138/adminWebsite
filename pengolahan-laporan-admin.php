@@ -13,9 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -24,8 +22,8 @@
 
 <body id="page-top">
 
-        <!-- Page Wrapper -->
-        <div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -70,10 +68,9 @@
             ?>
 
             <!-- Nav Item - Pages Collapse Menu -->
-                <?php if ($jabatan == 'koki') { ?>
+            <?php if ($jabatan == 'koki') { ?>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki"
-                        aria-expanded="true" aria-controls="collapseKoki">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKoki" aria-expanded="true" aria-controls="collapseKoki">
                         <i class="fas fa-fw fa-utensils"></i>
                         <span>Koki</span>
                     </a>
@@ -85,61 +82,59 @@
                         </div>
                     </div>
                 </li>
-                <?php } ?>
+            <?php } ?>
 
             <?php if ($jabatan == 'pelayan') { ?>
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePelayan"
-                    aria-expanded="true" aria-controls="collapsePelayan">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Pelayan</span>
-                </a>
-                <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Menu Pelayan</h6>
-                        <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePelayan" aria-expanded="true" aria-controls="collapsePelayan">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>Pelayan</span>
+                    </a>
+                    <div id="collapsePelayan" class="collapse" aria-labelledby="headingPelayan" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Menu Pelayan</h6>
+                            <a class="collapse-item" href="pengolahan-pesanan-pelayan.php">Pencatatan Pesanan</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
             <?php } ?>
 
             <?php if ($jabatan == 'kasir') { ?>
-            <!-- Nav Item - Kasir Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir"
-                    aria-expanded="true" aria-controls="collapseKasir">
-                    <i class="fas fa-fw fa-cash-register"></i>
-                    <span>Kasir</span>
-                </a>
-                <div id="collapseKasir" class="collapse show" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Menu Kasir</h6>
-                        <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Total Pesanan</a>
-                        <a class="collapse-item active" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
+                <!-- Nav Item - Kasir Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKasir" aria-expanded="true" aria-controls="collapseKasir">
+                        <i class="fas fa-fw fa-cash-register"></i>
+                        <span>Kasir</span>
+                    </a>
+                    <div id="collapseKasir" class="collapse" aria-labelledby="headingKasir" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Menu Kasir</h6>
+                            <a class="collapse-item" href="pengolahan-pesanan-harian-kasir.php">Pengolahan Pesanan</a>
+                            <a class="collapse-item" href="pengolahan-pesanan-kasir.php">Histori Pesanan</a>
+                            <a class="collapse-item" href="pengolahan-laporan-keuangan-kasir.php">Laporan Keuangan</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
             <?php } ?>
 
             <?php if ($jabatan == 'admin') { ?>
-            <!-- Nav Item - Admin Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin"
-                    aria-expanded="true" aria-controls="collapseAdmin">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Admin</span>
-                </a>
-                <div id="collapseAdmin" class="collapse show" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Menu Admin:</h6>
-                        <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
-                        <a class="collapse-item" href="pengolahan-meja-admin.php">Pengolahan Meja</a>
-                        <a class="collapse-item" href="pengolahan-menu-admin.php">Persetujuan Menu</a>
-                        <a class="collapse-item active" href="pengolahan-laporan-admin.php">Laporan Keuangan</a>
+                <!-- Nav Item - Admin Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Admin</span>
+                    </a>
+                    <div id="collapseAdmin" class="collapse show" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Menu Admin:</h6>
+                            <a class="collapse-item" href="pengolahan-pegawai-admin.php">Pengolahan Pegawai</a>
+                            <a class="collapse-item" href="pengolahan-meja-admin.php">Pengolahan Meja</a>
+                            <a class="collapse-item" href="pengolahan-menu-admin.php">Persetujuan Menu</a>
+                            <a class="collapse-item active" href="pengolahan-laporan-admin.php">Laporan Keuangan</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
             <?php } ?>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -178,18 +173,14 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -202,15 +193,13 @@
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
                                 <span class="badge badge-danger badge-counter">3+</span>
                             </a>
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
@@ -253,22 +242,19 @@
 
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
                                 <!-- Counter - Messages -->
                                 <span class="badge badge-danger badge-counter">7</span>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
                                     Message Center
                                 </h6>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div class="font-weight-bold">
@@ -279,8 +265,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
                                         <div class="status-indicator"></div>
                                     </div>
                                     <div>
@@ -291,8 +276,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
                                         <div class="status-indicator bg-warning"></div>
                                     </div>
                                     <div>
@@ -303,8 +287,7 @@
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
+                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="...">
                                         <div class="status-indicator bg-success"></div>
                                     </div>
                                     <div>
@@ -321,15 +304,12 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Budi Kasir</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
@@ -355,94 +335,75 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Laporan Keuangan</h1>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Laporan Keuangan</h1>
 
-                    <!-- Date Range Form -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Pilih Periode Waktu</h6>
-                        </div>
-                        <div class="card-body">
-                            <form id="report-form" action="pengolahan-laporan-keuangan-kasir.php" method="get">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="start_date">Tanggal Mulai</label>
-                                        <input type="date" class="form-control" id="start_date" name="start_date" required>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="end_date">Tanggal Akhir</label>
-                                        <input type="date" class="form-control" id="end_date" name="end_date" required>
-                                    </div>
-                                    <div class="form-group col-md-4 align-self-end">
-                                        <button type="submit" class="btn btn-primary">Lihat Laporan</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+    <!-- Date Range Form -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Pilih Periode Waktu</h6>
+        </div>
+        <div class="card-body">
+            <form id="report-form" action="pengolahan-laporan-keuangan-kasir.php" method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="start_date">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" required>
                     </div>
-
-                    <?php include 'pengolahan-laporan-keuangan-kasir(data).php'; ?>
-
-                    <!-- Report Results -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Tanggal</th>
-                                            <th class="text-center">Total Penjualan</th>
-                                            <th class="text-center">Jumlah Pesanan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="report-table-body">
-                                    <?php
-                                    if (!empty($tanggal)) {
-                                        for ($i = 0; $i < count($tanggal); $i++) {
-                                            echo "<tr>";
-                                            echo "<td class='text-center'>{$tanggal[$i]}</td>";
-                                            echo "<td class='text-center'>{$total_penjualan[$i]}</td>";
-                                            echo "<td class='text-center'>{$jumlah_pesanan[$i]}</td>";
-                                            echo "</tr>";
-                                        }
-                                    } else {
-                                        echo "<tr>";
-                                        echo "<td colspan='3' class='text-center'>Tidak ada data</td>";
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <canvas id="myChart" width="400" height="200"></canvas>
-                                <script>
-                                    var ctx = document.getElementById('myChart').getContext('2d');
-                                    var chart = new Chart(ctx, {
-                                        type: 'line',
-                                        data: {
-                                            labels: <?php echo json_encode($tanggal); ?>,
-                                            datasets: [{
-                                                label: 'Total Penjualan',
-                                                backgroundColor: 'rgba(0, 119, 204, 0.3)',
-                                                borderColor: 'rgb(0, 119, 204)',
-                                                data: <?php echo json_encode($total_penjualan); ?>
-                                            }]
-                                        },
-                                        options: {}
-                                    });
-                                </script>
-                        </div>
+                    <div class="form-group col-md-4">
+                        <label for="end_date">Tanggal Akhir</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                    </div>
+                    <div class="form-group col-md-4 align-self-end">
+                        <button type="submit" class="btn btn-primary">Lihat Laporan</button>
                     </div>
                 </div>
-            <!-- /.container-fluid -->
+            </form>
+        </div>
+    </div>
+
+    <?php include 'pengolahan-laporan-keuangan-kasir(data).php'; ?>
+
+    <!-- Report Results -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Tanggal</th>
+                            <th class="text-center">Total Penjualan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report-table-body">
+                        <?php
+                        if (!empty($tanggal)) {
+                            for ($i = 0; $i < count($tanggal); $i++) {
+                                echo "<tr>";
+                                echo "<td class='text-center'>{$tanggal[$i]}</td>";
+                                echo "<td class='text-center'>{$total_penjualan[$i]}</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr>";
+                            echo "<td colspan='2' class='text-center'>Tidak ada data</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </div>
-            <!-- End of Main Content -->
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+</div>
+<!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -466,8 +427,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
