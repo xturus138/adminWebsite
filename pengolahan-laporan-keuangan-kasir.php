@@ -335,75 +335,78 @@
                 </nav>
                 <!-- End of Topbar -->
 
-<!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">Laporan Keuangan</h1>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Laporan Keuangan</h1>
 
-    <!-- Date Range Form -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Pilih Periode Waktu</h6>
-        </div>
-        <div class="card-body">
-            <form id="report-form" action="pengolahan-laporan-keuangan-kasir.php" method="get">
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="start_date">Tanggal Mulai</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                    <!-- Date Range Form -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Pilih Periode Waktu</h6>
+                        </div>
+                        <div class="card-body">
+                            <form id="report-form" action="pengolahan-laporan-keuangan-kasir.php" method="get">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="start_date">Tanggal Mulai</label>
+                                        <input type="date" class="form-control" id="start_date" name="start_date" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="end_date">Tanggal Akhir</label>
+                                        <input type="date" class="form-control" id="end_date" name="end_date" required>
+                                    </div>
+                                    <div class="form-group col-md-4 align-self-end">
+                                        <button type="submit" class="btn btn-primary">Lihat Laporan</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="end_date">Tanggal Akhir</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date" required>
-                    </div>
-                    <div class="form-group col-md-4 align-self-end">
-                        <button type="submit" class="btn btn-primary">Lihat Laporan</button>
+
+                    <?php include 'pengolahan-laporan-keuangan-kasir(data).php'; ?>
+
+                    <!-- Report Results -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Tanggal</th>
+                                            <th class="text-center">Total Penjualan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="report-table-body">
+                                        <?php
+                                        if (!empty($tanggal)) {
+                                            for ($i = 0; $i < count($tanggal); $i++) {
+                                                echo "<tr>";
+                                                echo "<td class='text-center'>{$tanggal[$i]}</td>";
+                                                echo "<td class='text-center'>{$total_penjualan[$i]}</td>";
+                                                echo "</tr>";
+                                            }
+                                        } else {
+                                            echo "<tr>";
+                                            echo "<td colspan='2' class='text-center'>Tidak ada data</td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Akumulasi Total Penjualan: Rp. <?php echo $akumulasi_total; ?></h6>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <?php include 'pengolahan-laporan-keuangan-kasir(data).php'; ?>
-
-    <!-- Report Results -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="reportTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Tanggal</th>
-                            <th class="text-center">Total Penjualan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="report-table-body">
-                        <?php
-                        if (!empty($tanggal)) {
-                            for ($i = 0; $i < count($tanggal); $i++) {
-                                echo "<tr>";
-                                echo "<td class='text-center'>{$tanggal[$i]}</td>";
-                                echo "<td class='text-center'>{$total_penjualan[$i]}</td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr>";
-                            echo "<td colspan='2' class='text-center'>Tidak ada data</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                <!-- /.container-fluid -->
             </div>
-        </div>
-    </div>
-</div>
-<!-- /.container-fluid -->
-</div>
-<!-- End of Main Content -->
+            <!-- End of Main Content -->
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">

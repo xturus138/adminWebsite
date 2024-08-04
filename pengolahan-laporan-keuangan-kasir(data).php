@@ -5,6 +5,8 @@ include 'config.php';
 $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
 $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
 
+$akumulasi_total = 0;
+
 if ($start_date && $end_date) {
     // Query untuk mengambil data berdasarkan tanggal
     $sql = "SELECT p.tanggal, SUM(p.total) as total_penjualan
@@ -25,6 +27,10 @@ if ($start_date && $end_date) {
     } else {
         echo "Hasil tidak ditemukan";
     }
+
+    // Menghitung akumulasi total penjualan
+    $akumulasi_total = array_sum($total_penjualan);
+
 } else {
     echo "Silakan pilih rentang tanggal.";
 }
