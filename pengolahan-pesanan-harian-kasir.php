@@ -405,7 +405,7 @@
                                         <td>{$row['no_meja']}</td>
                                         <td>{$row['total']}</td>
                                         <td>
-                                            <div class='dropdown'>
+                                            <div class='dropdown text-center'>
                                                 <button class='btn $btnClass dropdown-toggle' type='button' id='statusDropdown{$row['no_pesanan']}' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                                     {$status}
                                                 </button>

@@ -379,14 +379,14 @@
                                             $statuses = ["selesai", "belum dibayar", "sudah dibayar"];
 
                                             // Fetch search date from POST request
-                                            $searchDate = isset($_POST['search-date']) ? $_POST['search-date'] : '';
+                                            $searchDate = isset($_POST['search_date']) ? $_POST['search_date'] : '';
 
                                             // SQL query to fetch orders
                                             $sql = "SELECT o.no_pesanan, o.tanggal, m.no_meja, SUM(ip.jumlah) as total_jumlah, o.total, o.status_pesanan
-                                                    FROM pesanan o
-                                                    JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
-                                                    JOIN meja m ON o.no_meja = m.no_meja
-                                                    WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar')";
+        FROM pesanan o
+        JOIN isi_pesanan ip ON o.no_pesanan = ip.no_pesanan
+        JOIN meja m ON o.no_meja = m.no_meja
+        WHERE o.status_pesanan IN ('selesai', 'belum dibayar', 'sudah dibayar')";
 
                                             // Add date filter if search date is provided
                                             if ($searchDate) {
@@ -403,33 +403,35 @@
                                                     // Determine button class based on status
                                                     if ($row['status_pesanan'] === 'sudah dibayar') {
 
-                                                    echo "<tr>
-                                                            <td class='text-center'>{$no}</td>
-                                                            <td>{$row['no_pesanan']}</td>
-                                                            <td>{$row['tanggal']}</td>
-                                                            <td>{$row['no_meja']}</td>
-                                                            <td>{$row['total']}</td>
-                                                            <td>
-                                                                <div class='text-center'>
-                                                                    <button class='btn btn-success' type='button' id='statusDropdown{$row['status_pesanan']}' aria-haspopup='true' aria-expanded='false'>
-                                                                        sudah dibayar
+                                                        echo "<tr>
+                                                                <td class='text-center'>{$no}</td>
+                                                                <td>{$row['no_pesanan']}</td>
+                                                                <td>{$row['tanggal']}</td>
+                                                                <td>{$row['no_meja']}</td>
+                                                                <td>{$row['total']}</td>
+                                                                <td>
+                                                                    <div class='text-center'>
+                                                                        <button class='btn btn-success' type='button' id='statusDropdown{$row['status_pesanan']}' aria-haspopup='true' aria-expanded='false'>
+                                                                            sudah dibayar
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                                <td class='text-center'>
+                                                                    <button type='button' class='btn btn-info' data-toggle='modal' data-target='#orderDetailModal' data-id='{$row['no_pesanan']}'>
+                                                                        Detail
                                                                     </button>
-                                                                </div>
-                                                            </td>
-                                                            <td class='text-center'>
-                                                                <button type='button' class='btn btn-info' data-toggle='modal' data-target='#orderDetailModal' data-id='{$row['no_pesanan']}'>
-                                                                    Detail
-                                                                </button>
-                                                            </td>
-                                                        </tr>";
-                                                    $no++;
+                                                                </td>
+                                                            </tr>";
+                                                        $no++;
                                                     }
                                                 }
                                             } else {
                                                 echo "<tr><td colspan='8'>Pesanan tidak ditemukan</td></tr>";
                                             }
+
                                             mysqli_close($db);
                                             ?>
+
                                         </tbody>
                                     </table>
                                 </div>
