@@ -355,171 +355,126 @@
                 </nav>
                 <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-            <div class="container-fluid">
+                <?php
+// Include database connection
+include 'config.php';
 
-                <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                        <i class="fas fa-download fa-sm text-white-50"></i> GATAU BUAT APA
-                    </a>
+
+
+// Initialize variable to store counts
+$menu_pending_count = 0;
+$table_empty_count = 0;
+$order_waiting_count = 0;
+$order_cooking_count = 0;
+$order_done_count = 0;
+
+// Check user role and fetch data accordingly
+switch ($_SESSION['jabatan']) {
+    case 'admin':
+        // Query to count menu with status 'tunda'
+        $query = "SELECT COUNT(*) as count FROM menu WHERE status_menu = 'tunda'";
+        $result = mysqli_query($db, $query);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $menu_pending_count = $row['count'];
+        }
+        break;
+    case 'pelayan':
+        // Query to count tables with status 'kosong'
+        $query = "SELECT COUNT(*) as count FROM meja WHERE status_meja = 'kosong'";
+        $result = mysqli_query($db, $query);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $table_empty_count = $row['count'];
+        }
+        break;
+    case 'koki':
+        // Query to count orders with status 'tunggu' and 'masak'
+        $query_waiting = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'tunggu'";
+        $result_waiting = mysqli_query($db, $query_waiting);
+        if ($result_waiting) {
+            $row = mysqli_fetch_assoc($result_waiting);
+            $order_waiting_count = $row['count'];
+        }
+
+        $query_cooking = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'masak'";
+        $result_cooking = mysqli_query($db, $query_cooking);
+        if ($result_cooking) {
+            $row = mysqli_fetch_assoc($result_cooking);
+            $order_cooking_count = $row['count'];
+        }
+        break;
+    case 'kasir':
+        // Query to count orders with status 'selesai'
+        $query = "SELECT COUNT(*) as count FROM pesanan WHERE status_pesanan = 'selesai'";
+        $result = mysqli_query($db, $query);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $order_done_count = $row['count'];
+        }
+        break;
+    default:
+        // No specific role
+        break;
+}
+
+?>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Selamat Datang di Sistem Resto UNIKOM</h1>
+    </div>
+
+    <!-- Role User -->
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Perhatian!</h6>
                 </div>
-
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Ringkasan Harian Card -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Jumlah Pesanan Hari Ini</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">123</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="alert alert-info" role="alert">
+                        <strong>Peran Anda: </strong> <?php echo $_SESSION['jabatan']; ?>. Ini adalah tampilan untuk tugas <?php echo $_SESSION['jabatan']; ?> di sistem Resto UNIKOM.
                     </div>
-
-                    <!-- Tugas Terbaru Card -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Total Pendapatan Hari Ini</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp 5.000.000</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Informasi Waktu Card -->
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            Waktu Sekarang</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="currentTime">12:00 PM</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-clock fa-2x text-gray-300"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <p>Silakan gunakan menu di sebelah kiri untuk mengakses fitur-fitur sesuai dengan peran Anda.</p>
+                    <ul class="list-group">
+                        <?php
+                        switch ($_SESSION['jabatan']) {
+                            case 'koki':
+                                echo '<li class="list-group-item">- Pesanan yang masih dimasak: ' . $order_cooking_count . '</li>';
+                                echo '<li class="list-group-item">- Pesanan yang menunggu untuk dimasak: ' . $order_waiting_count . '</li>';
+                                break;
+                            case 'pelayan':
+                                echo '<li class="list-group-item">- Total meja yang masih kosong: ' . $table_empty_count . '</li>';
+                                break;
+                            case 'admin':
+                                echo '<li class="list-group-item">- Total menu yang masih belum disetujui: ' . $menu_pending_count . '</li>';
+                                break;
+                            case 'kasir':
+                                echo '<li class="list-group-item">- Total pesanan yang belum dibayar: ' . $order_done_count .  ' (pesanan dengan status selesai)</li>';
+                                break;
+                            default:
+                                echo '<li class="list-group-item">- Tidak ada tugas khusus</li>';
+                        }
+                        ?>
+                    </ul>
                 </div>
-
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Pesanan Terbaru -->
-                    <div class="col-xl-8 col-lg-7">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Pesanan Terbaru</h6>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Pesanan #1 - Nasi Goreng
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Pesanan #2 - Mie Ayam
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Pesanan #3 - Sate Ayam
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Pesanan #4 - Es Teh Manis
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tugas Terbaru -->
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Tugas Terbaru</h6>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Tugas 1
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Tugas 2
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Tugas 3
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
-                                        Tugas 4
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content Row Pengumuman -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Pengumuman</h6>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="announcementTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Judul</th>
-                                                <th>Detail</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Meeting</td>
-                                                <td>Ada meeting pukul 15:00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Maintenance</td>
-                                                <td>Maintenance server pukul 22:00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            <!-- /.container-fluid -->
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->
+
+
+
+
+
 
             </div>
             <!-- End of Main Content -->
