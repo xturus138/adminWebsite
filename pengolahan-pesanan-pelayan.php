@@ -241,12 +241,6 @@
                         border-radius: 5px;
                         margin-top: 30px;
                     }
-                    h1 {
-                        text-align: center;
-                        color: #4e73df;
-                        font-size: 1.75rem;
-                        margin-bottom: 20px;
-                    }
                     input[type="number"] {
                         width: 60px;
                         padding: 5px;
@@ -298,11 +292,11 @@
             </head>
                 <body>
                     <div class="container">
-                        <h1>Menu Pencatatan Pesanan</h1>
+                        <h1 class="h3 mb-0 text-gray-800 ">Menu Pencatatan Pesanan</h1>
                         <form action="pengolahan-pesanan-insert-pelayan.php" method="POST">
                             <div class="table-number">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Semua Menu</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Pilih Nomor sMeja</h6>
                                 </div>
                                 <select id="table-number" name="table_number" required>
                                     <option value="" disabled selected>Pilih Nomor Meja</option>

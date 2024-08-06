@@ -225,12 +225,6 @@
                         border-radius: 5px;
                         margin-top: 30px;
                     }
-                    h1 {
-                        text-align: center;
-                        color: #4e73df;
-                        font-size: 1.75rem;
-                        margin-bottom: 20px;
-                    }
                     .submit-btn {
                         display: block;
                         width: 25%;
@@ -276,7 +270,7 @@
             </head>
             <body>
                 <div class="container">
-                    <h1>Menu Reservasi</h1>
+                    <h1 class="h3 mb-0 text-gray-800 ">Menu Reservasi</h1>
                     <form action="reservasi-pesanan-insert-pelayan.php" method="POST">
                         <div class="table-number">
                             <label for="table-number">Nomor Meja:</label>
