@@ -41,7 +41,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Order Berhasil!</h1>
+        <h1>Pesanan Berhasil!</h1>
         <p>Terima kasih atas pesanan Anda</p>
         <a href="pengolahan-pesanan-pelayan.php">Back to Menu</a>
     </div>
