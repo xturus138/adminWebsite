@@ -1,6 +1,6 @@
 # Resto Unikom
 
-## Deskripsi
+## Deskripsi 📖
 Proyek ini adalah sebuah situs web restoran yang dibangun menggunakan HTML, CSS, JavaScript, dan PHP. Aplikasi ini digunakan untuk mengelola berbagai aspek operasional dalam lingkungan administrasi restoran.
 
 ## Fitur ✨
@@ -18,7 +18,7 @@ Proyek ini adalah sebuah situs web restoran yang dibangun menggunakan HTML, CSS,
 - `scss/`: Berkas SCSS
 - `vendor/`: Pustaka pihak ketiga
 
-## Anggota
+## Anggota 🧑‍🎓
 - Stevanus Ryo Wijaya (10122014)
 - Raihan Dafa Alfarizi (10122022)
 - Muhammad Rivaldi Setiawan (10122031)
