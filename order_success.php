@@ -41,8 +41,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Order Submitted Successfully!</h1>
-        <p>Thank you for your order.</p>
+        <h1>Order Berhasil!</h1>
+        <p>Terima kasih atas pesanan Anda</p>
         <a href="pengolahan-pesanan-pelayan.php">Back to Menu</a>
     </div>
 </body>
