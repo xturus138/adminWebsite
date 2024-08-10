@@ -248,7 +248,7 @@
                                         include 'config.php'; // Include database connection
 
                                         // Query to select pesanan with specific statuses
-                                        $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai')";
+                                        $query = "SELECT * FROM pesanan WHERE status_pesanan IN ('tunggu', 'masak', 'selesai') AND DATE(tanggal) = CURDATE()";
                                         $result = mysqli_query($db, $query);
 
                                         $no = 1;
