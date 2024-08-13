@@ -24,3 +24,5 @@ Proyek ini adalah sebuah situs web restoran yang dibangun menggunakan HTML, CSS,
 - Muhammad Rivaldi Setiawan (10122031)
 - Raditya Aryabudhi Ramadhan (10122032)
 - Arya Ababil (10122506)
+
+## Link curhatsantai.my.id
