@@ -25,4 +25,9 @@ Proyek ini adalah sebuah situs web restoran yang dibangun menggunakan HTML, CSS,
 - Raditya Aryabudhi Ramadhan (10122032)
 - Arya Ababil (10122506)
 
-## Link curhatsantai.my.id
+## Link Hosting
+- curhatsantai.my.id
+
+## User
+![image](https://github.com/user-attachments/assets/c6f5750f-9724-4ec5-a62f-a7b58066d7a8)
+
